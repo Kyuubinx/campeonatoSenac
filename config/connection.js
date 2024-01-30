@@ -1,4 +1,4 @@
-const connection = function (){
+export const connection = function (){
     const mysql = require('mysql')
 
     return mysql.createConnection({
@@ -8,4 +8,3 @@ const connection = function (){
         database: 'vcli_championship'
     })
 }
-module.exports = connection
