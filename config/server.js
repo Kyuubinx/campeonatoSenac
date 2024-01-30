@@ -1,3 +1,5 @@
+const { adminRouter } = require('../app/routes/admin')
+
 module.exports = function () {
 
     const express = require('express')
@@ -17,7 +19,8 @@ module.exports = function () {
     app.use(bodyParser.urlencoded({extended: true}))
     app.use(expressValidator())
     app.use(express.static('/'))
-
+    app.use(adminRouter("/admin"))
+    
     app.use(expressSession({
         secret:'anderso',
         resave: false,
