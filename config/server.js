@@ -1,4 +1,5 @@
 const { adminRouter } = require('../app/routes/admin')
+const { userRouter } = require('../app/routes/user')
 
 module.exports = function () {
 
@@ -20,7 +21,8 @@ module.exports = function () {
     app.use(expressValidator())
     app.use(express.static('/'))
     app.use(adminRouter("/admin"))
-    
+    app.use(userRouter("/user"))
+
     app.use(expressSession({
         secret:'anderso',
         resave: false,
