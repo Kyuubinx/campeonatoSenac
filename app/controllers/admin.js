@@ -5,11 +5,11 @@ export async function admin (req, res){
     return res.status(200).json("sim")
 }
 
-export async function createUserController(req , res){
-    req.dados
-    const createUser = await createUserModel()
+export async function pageAdmin(req , res){
+    const listTeam = await createUserModel()
     if(!createUser){
-        return res.status(400).json("sim")
+       let erro = "Erro ao encontrar times" 
+        return res.status(400).json(erro)
     }
-    return res.status(201).json("sim")
+    return res.status(201).json(createUser)
 }
