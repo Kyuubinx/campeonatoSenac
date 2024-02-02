@@ -1,35 +1,21 @@
 import {connection} from "../../config/connection.js";
 
-//duas formas para fazer
-// na primeira conseguimos fazer um UPDATE, DELETE, INSERT e ainda fazer alguma outra coisa
-//Por exemplo inseri um novo jogador e quero retornar a lista com todos os jogadores esse novo jeito faz isso, INSERE E + ação
-
-export async function createUserModel() {
+export async function listUsers() {
   try {
-    await connection.query(`INSERT INTO usuario (name) VALUES (1);`);
-    const [results, fields] = await conn.query("SELECT * FROM usuario");
-    console.log(results);
+    const [results, fields] = await connection.query("SELECT * FROM user");
     return results;
-  } catch (err) {
-    console.log(err);
+  } catch (errors) {
+    console.log(errors);
   }
 }
 
-//MODO ANTIGO COM A ALTERAÇÃO NO MODO DE EXPORT (NÃO TEM MAIS UM "moducle.export" AGORA É DIRETO "export async function ...")
-export async function exemplolistarusuario() {
-    return new Promise((resolve, rejects)=>{
-        connection.query(`SELECT * FROM usuario`, function(erros,result){
-            
-            resolve(result)
-        })
-    })
+export async function listTeams() {
+  try{
+    const [results, fields] = await connection.query(`SELECT * FROM team`)
+    return results;
+  } catch (errors){
+    console.log(errors)
+  }
+
 }
 
-export async function listTeams() {
-  return new Promise((resolve, rejects)=>{
-      connection.query(`SELECT * FROM usuario`, function(erros,result){
-      resolve(result)
-      })
-  })
-}
-  

@@ -1,10 +1,8 @@
-export const connection = function (){
-    const mysql = require('mysql')
-
-    return mysql.createConnection({
+import mysql from "mysql2/promise"
+export const connection =
+    await mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: '',
         database: 'vcli_championship'
     })
-}
