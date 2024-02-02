@@ -3,4 +3,4 @@ import { home } from "../controllers/user.js"
 
 export const userRouter = Router()
 
-userRouter.get("/page",home)
+userRouter.get("/home",home)

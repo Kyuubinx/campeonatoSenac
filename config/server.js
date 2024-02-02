@@ -1,35 +1,14 @@
-const { adminRouter } = require('../app/routes/admin')
-const { userRouter } = require('../app/routes/user')
+import {adminRouter} from "../app/routes/admin.js"
+import {userRouter} from "../app/routes/user.js"
+import express from "express"
 
-module.exports = function () {
-
-    const express = require('express')
-    const consign = require('consign')
-    const bodyParser = require('body-parser')
-    const expressValidator = require('express-validator')
-    const expressSession = require('express-session')
+export function app_server() {
     
-
     const app = express();
 
-    app.use(express.static('app/public'))
-
-    app.set('view engine', 'ejs')
-    app.set('views', './app/views')
-
-    app.use(bodyParser.urlencoded({extended: true}))
-    app.use(expressValidator())
-    app.use(express.static('/'))
-    app.use(adminRouter("/admin"))
-    app.use(userRouter("/user"))
-
-    app.use(expressSession({
-        secret:'anderso',
-        resave: false,
-        saveUninitialized: false
-    }))
-
-    consign().include('app/routes').then('config/connection.js').then('app/models').then('app/controllers').into(app)
+    app.use(express.json())
+    app.use("/admin", adminRouter)
+    app.use("/user", userRouter)
 
     return app
 }

@@ -1,10 +1,6 @@
 import {connection} from "../../config/connection.js";
 
-export async function pageUser() {
-    return new Promise((resolve, rejects)=>{
-        connection.query(`SELECT * FROM usuario`, function(erros,result){
-            
-        resolve(result)
-        })
-    })
+export async function prevGames() {
+    const [prevGames, fields] = await connection.query(`SELECT * FROM game`)
+    return prevGames
 }
