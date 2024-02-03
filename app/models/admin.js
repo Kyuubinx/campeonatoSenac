@@ -26,7 +26,7 @@ export async function listPlayers() {
     console.log(errors)
   }
 }
-
+//judas
 export async function insertTeam(teamName, teamTag) {
   try{
     const [results, fields] = await connection.query(`INSERT INTO team (idTeam, teamName, teamTag, idGender, idLeague) VALUES (null, '${teamName}', '${teamTag}', 1, 1)`)
