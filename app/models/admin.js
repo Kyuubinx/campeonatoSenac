@@ -26,6 +26,8 @@ export async function listPlayers() {
     console.log(errors)
   }
 }
+//martia
+//joão
 //judas
 export async function insertTeam(teamName, teamTag) {
   try{
