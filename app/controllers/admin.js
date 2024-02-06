@@ -1,5 +1,5 @@
 import {connection} from "../../config/connection.js"
-import { insertTeam, listTeams, insertPlayer, listPlayers} from "../models/admin.js"
+import { insertTeam, listTeams, insertPlayer, listPlayers, searchTeamByName,searchPlayerByName,searchPlayerByTeam, searchPlayerByPosition} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("sim")
@@ -46,9 +46,61 @@ export async function registerPlayer(req, res){
     const idStatus = req.body.idStatus 
 
     const registerPlayer = await insertPlayer(playerName, idTeam, goal, age, idPosition, idStatus)
+
     if(!registerPlayer){
         let erro = "Erro ao cadastrar jogador"
         return res.status(400).json(erro)
     }
     return res.status(200).json(registerPlayer)
+}
+
+export async function searchTeam(req, res){
+
+    const teamName = req.body.teamName
+
+    const searchTeam = await searchTeamByName(teamName)
+
+    if(!searchTeam){
+        let erro = "Erro ao pesquisar time"
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(searchTeam)
+}
+
+export async function searchPlayer(req, res){
+
+    const playerName = req.body.playerName
+
+    const searchPlayer = await searchPlayerByName(playerName)
+
+    if(!searchPlayer){
+        let erro = "Erro ao pesquisar jogador"
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(searchPlayer)
+}
+
+export async function searchPlayerTeam(req,res){
+    const teamName = req.body.playerTeam
+
+    const searchPlayerTeam = await searchPlayerByTeam(teamName)
+
+    if(!searchPlayerTeam){
+        let erro = "Erro ao pesquisar jogadores do time"
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(searchPlayerTeam)
+}
+
+export async function searchPlayerPosition(req, res){
+
+    const positionName = req.body.positionName
+
+    const searchPlayerPosition = await searchPlayerByPosition(positionName)
+
+    if(!searchPlayerPosition){
+        let erro = "Erro ao pesquisar jogadores pela posição"
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(searchPlayerPosition)
 }
