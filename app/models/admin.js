@@ -1,18 +1,6 @@
 import {connection} from "../../config/connection.js";
 
-
-
-export async function searchTeamByLeague(leagueName){ //Select de strings fixas, stringify
-  try{
-    const[results, fields] = await connection.query(`SELECT * FROM team B, league A WHERE A.leagueName = '${leagueName}' and B.idLeague = A.idLeague;`)
-  } catch (errors) {
-    console.log(errors)
-  }
-}
-
-
-
-export async function listUsers() {
+export async function listUsersModel() {
   try{
     const [results, fields] = await connection.query("SELECT * FROM user");
     return results;
@@ -21,7 +9,7 @@ export async function listUsers() {
   }
 }
 
-export async function listTeams() {
+export async function listTeamsModel() {
   try{
     const [results, fields] = await connection.query(`SELECT * FROM team`)
     return results;
@@ -30,7 +18,7 @@ export async function listTeams() {
   }
 }
 
-export async function listPlayers() {
+export async function listPlayersModel() {
   try{
     const [results, fields] = await connection.query(`SELECT * FROM player`)
     return results;
@@ -39,9 +27,18 @@ export async function listPlayers() {
   }
 }
 
-export async function insertTeam(teamName, teamTag) {
+export async function listPlayersInTeamModel(idTeam){
+  try {
+    const[results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = ${idTeam}`)    
+    return results
+  }catch(errors){
+    console.log(errors)
+}
+}
+
+export async function insertTeamModel(teamName, teamTag) {
   
-  const findTeam = await searchTeamByName(teamName)
+  const findTeam = await searchTeamByNameModel(teamName)
   
   if(findTeam.length > 0){
     return false
@@ -55,9 +52,9 @@ export async function insertTeam(teamName, teamTag) {
   }
 }
 
-export async function insertPlayer(playerName, idTeam, goal, age, idPosition, idStatus) {
+export async function insertPlayerModel(playerName, idTeam, goal, age, idPosition, idStatus) {
 
-  const findPlayer = await searchPlayerByName(playerName)
+  const findPlayer = await searchPlayerByNameModel(playerName)
   
   if(findPlayer.length > 0){
     return false
@@ -71,7 +68,7 @@ export async function insertPlayer(playerName, idTeam, goal, age, idPosition, id
   }
 }
 
-export async function searchTeamByName(teamName){
+export async function searchTeamByNameModel(teamName){
   try{
     const[results, fields] = await connection.query(`SELECT * FROM team WHERE teamName = '${teamName}'`)
     return results; 
@@ -80,7 +77,7 @@ export async function searchTeamByName(teamName){
   }
 }
 
-export async function searchPlayerByName(playerName){
+export async function searchPlayerByNameModel(playerName){
   try{
       const[results, fields] = await connection.query(`SELECT * FROM player WHERE playerName = '${playerName}'`)
       return results; 
@@ -89,7 +86,7 @@ export async function searchPlayerByName(playerName){
   }
 }
 
-export async function searchPlayerByTeam(teamName){
+export async function searchPlayerByTeamModel(teamName){
   try{
       const[results, fields] = await connection.query(`SELECT * FROM player B, team A WHERE A.teamName = '${teamName}' and B.idTeam = A.idTeam;`)
       return results
@@ -98,14 +95,63 @@ export async function searchPlayerByTeam(teamName){
   }
 }
 
-export async function searchPlayerByPosition(positionName){ //Select de strings fixas, stringify
+export async function searchPlayerByPositionModel(description){ 
   try{
-      const[results, fields] = await connection.query(`SELECT * FROM player B, position A WHERE A.positionName = '${positionName}' and B.idPosition = A.idPosition;`)
+      const[results, fields] = await connection.query(`SELECT * FROM  player A, position B WHERE B.description = '${description}' AND A.idPosition = B.idPosition`)
       return results
   } catch (errors) {
       console.log(errors)
   }
 }
+
+
+export async function updateTeamActiveModel(idTeam,active){
+  try{
+    const[result,fiels] = await connection.query(`UPDATE team set active = "${active}" WHERE idTeam = ${idTeam}`)
+    return result
+  } catch (errors){
+    console.log(errors)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function listGamesByTeamModel(gameTeam){
+  
+  try{
+    const[results, fields] = await connection.query(`SELECT * FROM team A, game B WHERE A.teamName = '${gameTeam}' AND A.idTeam = B.id`)
+    return results
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
+/////////////////////
+
+
+
+
+//Select de strings fixas, stringify
+
+export async function searchTeamByLeague(leagueName){ 
+  try{
+    const[results, fields] = await connection.query(`SELECT * FROM team B, league A WHERE A.leagueName = '${leagueName}' and B.idLeague = A.idLeague;`)
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+//////////////////////
 
 export async function searchGameBySingleDate(selectedDate){
   try{
@@ -125,12 +171,6 @@ export async function listGamesBetweenDates(selectedDateA, selectedDateB){
   }
 }
 
-export async function listGamesByTeam(teamName){
-  try{
-    const[results, fields] = await connection.query(`SELECT * FROM team A, games B WHERE B.teamName = '${teamName}' AND A.idTeam FROM A = B.idTeam`)
-    return results
-  } catch (errors) {
-    console.log(errors)
-  }
-}
+
+
 

@@ -6,3 +6,5 @@ export const connection =
         password: '',
         database: 'vcli_championship'
     })
+
+  

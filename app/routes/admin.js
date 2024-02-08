@@ -1,15 +1,17 @@
 import { Router } from "express"
-import { players, registerPlayer, registerTeam, teams, searchTeam, searchPlayer, searchPlayerTeam, searchPlayerPosition} from "../controllers/admin.js"
+import { playersController, insertPlayerController, teamsController, searchTeamController, searchPlayerController, searchPlayerTeamController, searchPlayerPositionController, listGamesTeamController, listPlayersTeamController, updateActiveTeamController, insertTeamController} from "../controllers/admin.js"
 
 
 export const adminRouter = Router()
 
-adminRouter.get("/home",teams)
-adminRouter.get("/player",players)
-adminRouter.post("/registerTeam", registerTeam)
-adminRouter.post("/registerPlayer", registerPlayer)
-adminRouter.get("/searchTeamByName", searchTeam)
-adminRouter.get("/searchPlayerByName", searchPlayer)
-adminRouter.get("/searchPlayerByTeam", searchPlayerTeam)
-
-adminRouter.get("/searchPlayerByPosition", searchPlayerPosition)
+adminRouter.get("/home",teamsController)
+adminRouter.get("/player",playersController)
+adminRouter.post("/insertTeam", insertTeamController)
+adminRouter.post("/insertPlayer", insertPlayerController)
+adminRouter.get("/searchTeamByName", searchTeamController)
+adminRouter.get("/searchPlayerByName", searchPlayerController)
+adminRouter.get("/searchPlayerByTeam", searchPlayerTeamController)
+adminRouter.get("/listPlayersInTeam", listPlayersTeamController)
+adminRouter.patch("/updateActiveTeam", updateActiveTeamController)
+adminRouter.get("/listGamesByTeam", listGamesTeamController)
+adminRouter.get("/searchPlayerByPosition", searchPlayerPositionController)
