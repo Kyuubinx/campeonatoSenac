@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Fev-2024 às 00:14
+-- Tempo de geração: 09-Fev-2024 às 01:51
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -24,26 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `detailteam`
---
-
-CREATE TABLE `detailteam` (
-  `idDetail` int(11) NOT NULL,
-  `goal` int(11) NOT NULL,
-  `idGame` int(11) NOT NULL,
-  `card` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Extraindo dados da tabela `detailteam`
---
-
-INSERT INTO `detailteam` (`idDetail`, `goal`, `idGame`, `card`) VALUES
-(1, 0, 1, 0);
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `game`
 --
 
@@ -51,19 +31,19 @@ CREATE TABLE `game` (
   `idGame` int(11) NOT NULL,
   `teamHome` char(3) NOT NULL,
   `teamAway` char(3) NOT NULL,
-  `goal` int(11) DEFAULT 0,
+  `goalHome` int(11) DEFAULT 0,
+  `goalAway` int(11) NOT NULL DEFAULT 0,
   `idLeague` int(11) NOT NULL,
   `card` int(2) NOT NULL DEFAULT 0,
-  `dateGame` date NOT NULL,
-  `summary` text NOT NULL
+  `dateGame` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `game`
 --
 
-INSERT INTO `game` (`idGame`, `teamHome`, `teamAway`, `goal`, `idLeague`, `card`, `dateGame`, `summary`) VALUES
-(1, 'INT', 'GRE', 0, 1, 0, '2024-01-31', '...');
+INSERT INTO `game` (`idGame`, `teamHome`, `teamAway`, `goalHome`, `goalAway`, `idLeague`, `card`, `dateGame`) VALUES
+(1, 'INT', 'GRE', 0, 0, 1, 0, '2024-01-31 21:30:00');
 
 -- --------------------------------------------------------
 
@@ -114,22 +94,25 @@ CREATE TABLE `player` (
   `idPlayer` int(11) NOT NULL,
   `playerName` varchar(60) NOT NULL,
   `idTeam` int(11) NOT NULL,
-  `goal` int(11) NOT NULL DEFAULT 0,
   `photo` text NOT NULL,
   `age` int(11) NOT NULL,
   `idPosition` int(11) NOT NULL,
-  `idStatus` int(11) NOT NULL
+  `status` enum('pending','holder','reserve','injured','suspended') NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `player`
 --
 
-INSERT INTO `player` (`idPlayer`, `playerName`, `idTeam`, `goal`, `photo`, `age`, `idPosition`, `idStatus`) VALUES
-(1, 'Carlos', 7, 0, '...', 23, 1, 1),
-(2, 'Iago', 8, 0, '...', 18, 2, 1),
-(3, 'Lucas', 7, 0, '...', 18, 3, 1),
-(4, 'Vitor', 8, 0, '...', 17, 4, 1);
+INSERT INTO `player` (`idPlayer`, `playerName`, `idTeam`, `photo`, `age`, `idPosition`, `status`) VALUES
+(1, 'Carlos', 7, '...', 24, 1, 'injured'),
+(2, 'Iago', 8, '...', 18, 2, 'holder'),
+(3, 'Lucas', 7, '...', 18, 3, 'holder'),
+(4, 'Vitor', 8, '...', 17, 4, 'holder'),
+(6, 'Gustavo', 7, '...', 31, 1, 'holder'),
+(7, 'João', 9, '...', 21, 2, 'holder'),
+(8, 'Diego', 10, '...', 21, 2, 'holder'),
+(9, 'Ago', 14, '...', 21, 2, 'holder');
 
 -- --------------------------------------------------------
 
@@ -156,22 +139,20 @@ INSERT INTO `position` (`idPosition`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `status`
+-- Estrutura da tabela `ranking`
 --
 
-CREATE TABLE `status` (
-  `idStatus` int(11) NOT NULL,
-  `description` varchar(60) NOT NULL
+CREATE TABLE `ranking` (
+  `idRanking` int(11) NOT NULL,
+  `teamName` varchar(60) NOT NULL,
+  `points` int(11) NOT NULL,
+  `victory` int(11) NOT NULL,
+  `draw` int(11) NOT NULL,
+  `loss` int(11) NOT NULL,
+  `goalsPro` int(11) NOT NULL,
+  `goalsTaken` int(11) NOT NULL,
+  `goalSum` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Extraindo dados da tabela `status`
---
-
-INSERT INTO `status` (`idStatus`, `description`) VALUES
-(1, 'Holder'),
-(2, 'Reserve'),
-(3, 'Injured');
 
 -- --------------------------------------------------------
 
@@ -184,16 +165,24 @@ CREATE TABLE `team` (
   `teamName` varchar(120) NOT NULL,
   `teamTag` char(3) NOT NULL,
   `idGender` int(11) NOT NULL,
-  `idLeague` int(11) NOT NULL DEFAULT 1
+  `idLeague` int(11) NOT NULL DEFAULT 1,
+  `active` enum('true','false') NOT NULL DEFAULT 'true',
+  `photo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `team`
 --
 
-INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idGender`, `idLeague`) VALUES
-(7, 'Internacional', 'INT', 1, 1),
-(8, 'Gremio', 'GRE', 1, 1);
+INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idGender`, `idLeague`, `active`, `photo`) VALUES
+(7, 'Internacional', 'INT', 1, 1, 'true', ''),
+(8, 'Gremio', 'GRE', 1, 1, 'true', ''),
+(9, 'Real Madri', 'RMC', 1, 1, 'true', ''),
+(10, 'Barcelona', 'BAR', 1, 1, 'true', ''),
+(12, 'Figueirense', 'FIG', 1, 1, 'true', ''),
+(13, 'Flamengo', 'FLA', 1, 1, 'true', ''),
+(14, 'Caxias', 'CAX', 1, 1, 'true', ''),
+(15, 'Madureira', 'MAD', 1, 1, 'true', '');
 
 -- --------------------------------------------------------
 
@@ -245,13 +234,6 @@ INSERT INTO `usertype` (`id`, `description`) VALUES
 --
 
 --
--- Índices para tabela `detailteam`
---
-ALTER TABLE `detailteam`
-  ADD PRIMARY KEY (`idDetail`),
-  ADD KEY `idGame` (`idGame`);
-
---
 -- Índices para tabela `game`
 --
 ALTER TABLE `game`
@@ -278,8 +260,7 @@ ALTER TABLE `league`
 ALTER TABLE `player`
   ADD PRIMARY KEY (`idPlayer`),
   ADD KEY `idTeam` (`idTeam`),
-  ADD KEY `idPosition` (`idPosition`),
-  ADD KEY `idStatus` (`idStatus`);
+  ADD KEY `idPosition` (`idPosition`);
 
 --
 -- Índices para tabela `position`
@@ -288,10 +269,10 @@ ALTER TABLE `position`
   ADD PRIMARY KEY (`idPosition`);
 
 --
--- Índices para tabela `status`
+-- Índices para tabela `ranking`
 --
-ALTER TABLE `status`
-  ADD PRIMARY KEY (`idStatus`);
+ALTER TABLE `ranking`
+  ADD PRIMARY KEY (`idRanking`);
 
 --
 -- Índices para tabela `team`
@@ -319,12 +300,6 @@ ALTER TABLE `usertype`
 --
 
 --
--- AUTO_INCREMENT de tabela `detailteam`
---
-ALTER TABLE `detailteam`
-  MODIFY `idDetail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT de tabela `game`
 --
 ALTER TABLE `game`
@@ -346,7 +321,7 @@ ALTER TABLE `league`
 -- AUTO_INCREMENT de tabela `player`
 --
 ALTER TABLE `player`
-  MODIFY `idPlayer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPlayer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `position`
@@ -355,16 +330,16 @@ ALTER TABLE `position`
   MODIFY `idPosition` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de tabela `status`
+-- AUTO_INCREMENT de tabela `ranking`
 --
-ALTER TABLE `status`
-  MODIFY `idStatus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `ranking`
+  MODIFY `idRanking` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `team`
 --
 ALTER TABLE `team`
-  MODIFY `idTeam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idTeam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `user`
@@ -383,18 +358,6 @@ ALTER TABLE `usertype`
 --
 
 --
--- Limitadores para a tabela `detailteam`
---
-ALTER TABLE `detailteam`
-  ADD CONSTRAINT `detailteam_ibfk_1` FOREIGN KEY (`idGame`) REFERENCES `game` (`idGame`);
-
---
--- Limitadores para a tabela `game`
---
-ALTER TABLE `game`
-  ADD CONSTRAINT `game_ibfk_1` FOREIGN KEY (`idLeague`) REFERENCES `league` (`idLeague`);
-
---
 -- Limitadores para a tabela `league`
 --
 ALTER TABLE `league`
@@ -406,8 +369,7 @@ ALTER TABLE `league`
 --
 ALTER TABLE `player`
   ADD CONSTRAINT `player_ibfk_1` FOREIGN KEY (`idTeam`) REFERENCES `team` (`idTeam`),
-  ADD CONSTRAINT `player_ibfk_2` FOREIGN KEY (`idPosition`) REFERENCES `position` (`idPosition`),
-  ADD CONSTRAINT `player_ibfk_3` FOREIGN KEY (`idStatus`) REFERENCES `status` (`idStatus`);
+  ADD CONSTRAINT `player_ibfk_2` FOREIGN KEY (`idPosition`) REFERENCES `position` (`idPosition`);
 
 --
 -- Limitadores para a tabela `team`

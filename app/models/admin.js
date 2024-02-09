@@ -104,7 +104,6 @@ export async function searchPlayerByPositionModel(description){
   }
 }
 
-
 export async function updateTeamActiveModel(idTeam,active){
   try{
     const[result,fiels] = await connection.query(`UPDATE team set active = "${active}" WHERE idTeam = ${idTeam}`)
@@ -114,44 +113,32 @@ export async function updateTeamActiveModel(idTeam,active){
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-export async function listGamesByTeamModel(gameTeam){
-  
+export async function updatePlayerModel(idPlayer,age,status){
   try{
-    const[results, fields] = await connection.query(`SELECT * FROM team A, game B WHERE A.teamName = '${gameTeam}' AND A.idTeam = B.id`)
+    const[result,fiels] = await connection.query(`UPDATE player set age = ${age}, status = "${status}" where idPlayer = ${idPlayer}`)
+    return result
+  } catch (errors){
+    console.log(errors)
+  }
+}
+
+export async function listGamesModel(){
+  try{
+    const[results, fields] = await connection.query(`SELECT * FROM game`)
     return results
   } catch (errors) {
     console.log(errors)
   }
 }
 
-/////////////////////
-
-
-
-
-//Select de strings fixas, stringify
-
-export async function searchTeamByLeague(leagueName){ 
+export async function listGamesInTeamModel(teamTag) {
   try{
-    const[results, fields] = await connection.query(`SELECT * FROM team B, league A WHERE A.leagueName = '${leagueName}' and B.idLeague = A.idLeague;`)
+    const[results, fields] = await connection.query(`SELECT * FROM game WHERE teamHome = '${teamTag}' AND teamAway = '${teamTag}'`)
+    return results
   } catch (errors) {
     console.log(errors)
   }
 }
-//////////////////////
 
 export async function searchGameBySingleDate(selectedDate){
   try{
