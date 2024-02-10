@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { playersController, insertPlayerController, teamsController, searchTeamController, searchPlayerController, searchPlayerTeamController, searchPlayerPositionController, listPlayersTeamController, updateActiveTeamController, insertTeamController, listGamesController, updatePlayerController, listGamesInTeamController} from "../controllers/admin.js"
+import { listGamesBetweenDatesController, playersController, insertPlayerController, teamsController, searchTeamController, searchPlayerController, searchPlayerTeamController, searchPlayerPositionController, listPlayersTeamController, updateActiveTeamController, insertTeamController, listGamesController, updatePlayerController, listGamesInTeamController, listPositionController} from "../controllers/admin.js"
 
 
 export const adminRouter = Router()
@@ -16,9 +16,12 @@ adminRouter.get("/searchPlayerByTeam", searchPlayerTeamController)
 adminRouter.get("/searchPlayerByPosition", searchPlayerPositionController)
 
 adminRouter.get("/listPlayersInTeam", listPlayersTeamController)
+adminRouter.get("/listPosition",listPositionController)
 adminRouter.get("/listGames", listGamesController)
 adminRouter.get("/listGamesInTeam", listGamesInTeamController)
+adminRouter.get("/listGamesBetweenDates", listGamesBetweenDatesController)
 
 adminRouter.patch("/updateActiveTeam", updateActiveTeamController)
 adminRouter.patch("/updatePlayer", updatePlayerController)
+
 

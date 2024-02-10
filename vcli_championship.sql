@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09-Fev-2024 às 01:51
+-- Tempo de geração: 10-Fev-2024 às 01:20
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -48,32 +48,13 @@ INSERT INTO `game` (`idGame`, `teamHome`, `teamAway`, `goalHome`, `goalAway`, `i
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `gender`
---
-
-CREATE TABLE `gender` (
-  `idGender` int(11) NOT NULL,
-  `description` char(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Extraindo dados da tabela `gender`
---
-
-INSERT INTO `gender` (`idGender`, `description`) VALUES
-(1, 'M'),
-(2, 'F');
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `league`
 --
 
 CREATE TABLE `league` (
   `idLeague` int(11) NOT NULL,
   `nameLeague` varchar(80) NOT NULL,
-  `idGender` int(11) NOT NULL,
+  `gender` enum('M','F') NOT NULL,
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -81,8 +62,8 @@ CREATE TABLE `league` (
 -- Extraindo dados da tabela `league`
 --
 
-INSERT INTO `league` (`idLeague`, `nameLeague`, `idGender`, `idUser`) VALUES
-(1, 'A', 1, 3);
+INSERT INTO `league` (`idLeague`, `nameLeague`, `gender`, `idUser`) VALUES
+(1, 'A', 'M', 3);
 
 -- --------------------------------------------------------
 
@@ -97,7 +78,7 @@ CREATE TABLE `player` (
   `photo` text NOT NULL,
   `age` int(11) NOT NULL,
   `idPosition` int(11) NOT NULL,
-  `status` enum('pending','holder','reserve','injured','suspended') NOT NULL DEFAULT 'pending'
+  `status` enum('holder','reserve','injured') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -164,8 +145,8 @@ CREATE TABLE `team` (
   `idTeam` int(11) NOT NULL,
   `teamName` varchar(120) NOT NULL,
   `teamTag` char(3) NOT NULL,
-  `idGender` int(11) NOT NULL,
   `idLeague` int(11) NOT NULL DEFAULT 1,
+  `gender` enum('M','F') NOT NULL,
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `photo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -174,15 +155,15 @@ CREATE TABLE `team` (
 -- Extraindo dados da tabela `team`
 --
 
-INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idGender`, `idLeague`, `active`, `photo`) VALUES
-(7, 'Internacional', 'INT', 1, 1, 'true', ''),
-(8, 'Gremio', 'GRE', 1, 1, 'true', ''),
-(9, 'Real Madri', 'RMC', 1, 1, 'true', ''),
-(10, 'Barcelona', 'BAR', 1, 1, 'true', ''),
-(12, 'Figueirense', 'FIG', 1, 1, 'true', ''),
-(13, 'Flamengo', 'FLA', 1, 1, 'true', ''),
-(14, 'Caxias', 'CAX', 1, 1, 'true', ''),
-(15, 'Madureira', 'MAD', 1, 1, 'true', '');
+INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idLeague`, `gender`, `active`, `photo`) VALUES
+(7, 'Internacional', 'INT', 1, 'M', 'true', ''),
+(8, 'Gremio', 'GRE', 1, 'M', 'true', ''),
+(9, 'Real Madri', 'RMC', 1, 'M', 'true', ''),
+(10, 'Barcelona', 'BAR', 1, 'M', 'true', ''),
+(12, 'Figueirense', 'FIG', 1, 'M', 'true', ''),
+(13, 'Flamengo', 'FLA', 1, 'M', 'true', ''),
+(14, 'Caxias', 'CAX', 1, 'M', 'true', ''),
+(15, 'Madureira', 'MAD', 1, 'M', 'true', '');
 
 -- --------------------------------------------------------
 
@@ -241,17 +222,10 @@ ALTER TABLE `game`
   ADD KEY `idLeague` (`idLeague`);
 
 --
--- Índices para tabela `gender`
---
-ALTER TABLE `gender`
-  ADD PRIMARY KEY (`idGender`);
-
---
 -- Índices para tabela `league`
 --
 ALTER TABLE `league`
   ADD PRIMARY KEY (`idLeague`),
-  ADD KEY `idGender` (`idGender`),
   ADD KEY `idUser` (`idUser`);
 
 --
@@ -279,7 +253,6 @@ ALTER TABLE `ranking`
 --
 ALTER TABLE `team`
   ADD PRIMARY KEY (`idTeam`),
-  ADD KEY `idGender` (`idGender`),
   ADD KEY `idLeague` (`idLeague`);
 
 --
@@ -304,12 +277,6 @@ ALTER TABLE `usertype`
 --
 ALTER TABLE `game`
   MODIFY `idGame` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `gender`
---
-ALTER TABLE `gender`
-  MODIFY `idGender` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `league`
@@ -361,7 +328,6 @@ ALTER TABLE `usertype`
 -- Limitadores para a tabela `league`
 --
 ALTER TABLE `league`
-  ADD CONSTRAINT `league_ibfk_1` FOREIGN KEY (`idGender`) REFERENCES `gender` (`idGender`),
   ADD CONSTRAINT `league_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`);
 
 --
@@ -375,7 +341,6 @@ ALTER TABLE `player`
 -- Limitadores para a tabela `team`
 --
 ALTER TABLE `team`
-  ADD CONSTRAINT `team_ibfk_1` FOREIGN KEY (`idGender`) REFERENCES `gender` (`idGender`),
   ADD CONSTRAINT `team_ibfk_2` FOREIGN KEY (`idLeague`) REFERENCES `league` (`idLeague`);
 
 --
