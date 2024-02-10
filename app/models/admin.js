@@ -45,14 +45,14 @@ export async function insertTeamModel(teamName, teamTag) {
   }
 
   try{
-    const [results, fields] = await connection.query(`INSERT INTO team (idTeam, teamName, teamTag, idGender, idLeague) VALUES (null, '${teamName}', '${teamTag}', 1, 1)`)
+    const [results, fields] = await connection.query(`INSERT INTO team (idTeam, teamName, teamTag, gender, idLeague) VALUES (null, '${teamName}', '${teamTag}', 'M', 1)`)
     return results;
   } catch (errors){
     console.log(errors)
   }
 }
 
-export async function insertPlayerModel(playerName, idTeam, goal, age, idPosition, idStatus) {
+export async function insertPlayerModel(playerName, idTeam, age, idPosition, status) {
 
   const findPlayer = await searchPlayerByNameModel(playerName)
   
@@ -61,11 +61,20 @@ export async function insertPlayerModel(playerName, idTeam, goal, age, idPositio
   }
 
   try{
-    const [results, fields] = await connection.query(`INSERT INTO player (idPlayer, playerName, idTeam, goal, photo, age, idPosition, idStatus) VALUES (null, '${playerName}', ${idTeam}, ${goal}, '...', ${age}, ${idPosition}, ${idStatus})`)
+    const [results, fields] = await connection.query(`INSERT INTO player (idPlayer, playerName, idTeam, goal, photo, age, idPosition, status) VALUES (null, '${playerName}', ${idTeam}, ${goal}, ${photo}, ${age}, ${idPosition}, ${status})`)
     return results;
   } catch (errors){
     console.log(errors)
   }
+}
+
+export async function listPositionModel(){
+    try{
+      const[results, fields] = await connection.query(`SELECT * FROM position`)
+      return results; 
+  } catch (errors) {
+    console.log(errors)
+  }   
 }
 
 export async function searchTeamByNameModel(teamName){
@@ -133,7 +142,7 @@ export async function listGamesModel(){
 
 export async function listGamesInTeamModel(teamTag) {
   try{
-    const[results, fields] = await connection.query(`SELECT * FROM game WHERE teamHome = '${teamTag}' AND teamAway = '${teamTag}'`)
+    const[results, fields] = await connection.query(`SELECT * FROM game WHERE teamHome = '${teamTag}' OR teamAway = '${teamTag}'`)
     return results
   } catch (errors) {
     console.log(errors)
@@ -149,9 +158,9 @@ export async function searchGameBySingleDate(selectedDate){
   }
 }
 
-export async function listGamesBetweenDates(selectedDateA, selectedDateB){
+export async function listGamesBetweenDatesModel(selectedDateA, selectedDateB){
   try{
-    const[results, fields] = await connection.query(``) //Estudar formatação de dados de date, formato data em HTML ou stringify de date dos dados SQL
+    const[results, fields] = await connection.query(`SELECT * FROM  game WHERE dateGame >= '${selectedDateA}' AND dateGame <= '${selectedDateB}`)
     return results
   } catch (errors) {
     console.log(errors)

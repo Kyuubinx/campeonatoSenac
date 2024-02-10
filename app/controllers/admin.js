@@ -1,5 +1,5 @@
 import {connection} from "../../config/connection.js"
-import {listTeamsModel, searchPlayerByPositionModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel} from "../models/admin.js"
+import {listTeamsModel, searchPlayerByPositionModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listGamesBetweenDatesModel, listPositionModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -158,4 +158,23 @@ export async function listGamesController(req, res){
         return res.status(400).json(erro)
     }
     return res.status(200).json(listGames)
+}
+
+export async function listGamesBetweenDatesController(req, res){
+    const selectedDateA = req.body.selectedDateA
+    const selectedDateB = req.body.selectedDateB
+
+    const listGamesBetweenDates = await listGamesBetweenDatesModel(selectedDateA, selectedDateB)
+
+    if(!listGamesBetweenDates){
+        let erro = "Erro ao listar jogos"
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(listGamesBetweenDates)
+}
+
+export async function listPositionController(req, res){
+    const listPosition = await listPositionModel()
+    
+    return res.status(200).json(listPosition)
 }
