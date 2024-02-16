@@ -1,5 +1,6 @@
 import {connection} from "../../config/connection.js"
-import {listTeamsModel, searchPlayerByPositionModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listGamesBetweenDatesModel, listPositionModel} from "../models/admin.js"
+import moment from "moment"
+import {listTeamsModel, searchPlayerByPositionModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listGamesBetweenDatesModel, listPositionModel, listFutureGamesModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -177,4 +178,12 @@ export async function listPositionController(req, res){
     const listPosition = await listPositionModel()
     
     return res.status(200).json(listPosition)
+}
+
+export async function listFutureGamesController(req,res){
+    const actualDate = new Date()
+    const formatDate = moment().format()
+    const listFutureGames = await listFutureGamesModel(formatDate)
+
+    return res.status(200).json(listFutureGames)
 }

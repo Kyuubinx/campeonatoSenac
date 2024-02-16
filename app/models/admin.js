@@ -140,18 +140,18 @@ export async function listGamesModel(){
   }
 }
 
-export async function listGamesInTeamModel(teamTag) {
+export async function listGamesInTeamModel(idTeam) {
   try{
-    const[results, fields] = await connection.query(`SELECT * FROM game WHERE teamHome = '${teamTag}' OR teamAway = '${teamTag}'`)
+    const[results, fields] = await connection.query(`SELECT * FROM game WHERE teamHome = '${idTeam}' OR teamAway = '${idTeam}'`)
     return results
   } catch (errors) {
     console.log(errors)
   }
 }
 
-export async function searchGameBySingleDate(selectedDate){
+export async function listFutureGamesModel(actualDate){
   try{
-    const[results, fields] = await connection.query(``) //Estudar formatação de dados de date, formato data em HTML ou stringify de date dos dados SQL
+    const[results, fields] = await connection.query(`SELECT * from game WHERE dateGame > '${actualDate}'`) 
     return results
   } catch (errors) {
     console.log(errors)
