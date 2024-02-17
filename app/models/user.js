@@ -1,48 +1,87 @@
-import {connection} from "../../config/connection.js";
+// import { connection } from "../../config/connection.js";
 
-export async function prevGames() {
-    const [prevGames, fields] = await connection.query(`SELECT * FROM game`)
-    return prevGames
-}
+// export async function listGamesModel() {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM game`)
+//         return results
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
+// export async function listTeamsModel() {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM team`)
+//         return results;
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
 
-export async function searchTeamByName(teamName){
-    try{
-      const[results, fields] = await connection.query(`SELECT * FROM team WHERE teamName = '${teamName}'`)
-      return results; 
-    } catch (errors) {
-      console.log(errors)
-    }
-}
+// export async function listPlayersModel() {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM player`)
+//         return results;
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
 
-export async function searchPlayerByName(playerName){
-    try{
-        const[results, fields] = await connection.query(`SELECT * FROM player WHERE playerName = '${playerName}'`)
-        return results; 
-    } catch (errors) {
-        console.log(errors)
-    }
-}
+// export async function listPlayersInTeamModel(idTeam) {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = ${idTeam}`)
+//         return results
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
+// export async function listPositionModel() {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM position`)
+//         return results;
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
 
-export async function searchPlayerByTeam(teamName){
-    try{
-        const[results, fields] = await connection.query(`SELECT * FROM player B, team A WHERE A.teamName = '${teamName}' and B.idTeam = A.idTeam;`)
-    } catch (errors) {
-        console.log(errors)
-    }
-}
+// export async function searchTeamByNameModel(teamName) {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM team WHERE teamName = '${teamName}'`)
+//         return results;
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
 
-export async function searchPlayerByPosition(positionName){ //Select de strings fixas, stringify
-    try{
-        const[results, fields] = await connection.query(`SELECT * FROM player B, position A WHERE A.positionName = '${positionName}' and B.idPosition = A.idPosition;`)
-    } catch (errors) {
-        console.log(errors)
-    }
-}
+// export async function searchPlayerByNameModel(playerName) {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM player WHERE playerName = '${playerName}'`)
+//         return results;
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
 
-export async function searchTeamByLeague(leagueName){ //Select de strings fixas, stringify
-    try{
-        const[results, fields] = await connection.query(`SELECT * FROM team B, league A WHERE A.leagueName = '${leagueName}' and B.idLeague = A.idLeague;`)
-    } catch (errors) {
-        console.log(errors)
-    }
-}
+// export async function searchPlayerByTeamModel(teamName) {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM player B, team A WHERE A.teamName = '${teamName}' and B.idTeam = A.idTeam;`)
+//         return results
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
+// export async function listGamesInTeamModel(idTeam) {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * FROM game WHERE teamHome = '${idTeam}' OR teamAway = '${idTeam}'`)
+//         return results
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }
+// export async function listFutureGamesModel(actualDate) {
+//     try {
+//         const [results, fields] = await connection.query(`SELECT * from game WHERE dateGame > '${actualDate}'`)
+//         return results
+//     } catch (errors) {
+//         console.log(errors)
+//     }
+// }

@@ -1,6 +1,6 @@
 import {connection} from "../../config/connection.js"
 import moment from "moment"
-import {listTeamsModel, searchPlayerByPositionModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listGamesBetweenDatesModel, listPositionModel, listFutureGamesModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -24,7 +24,7 @@ export async function insertTeamController(req, res){
         let erro = "Erro ao cadastrar time"
         return res.status(400).json(erro)
     }
-    return res.status(200).json(registerTeam)
+    return res.status(201).json(registerTeam)
 }
 export async function searchTeamController(req, res){
 
@@ -51,9 +51,9 @@ export async function updateActiveTeamController(req, res){
     return res.status(200).json(updateTeam)
 }
 export async function listGamesInTeamController(req, res){
-    const teamTag = req.body.teamTag
+    const idTeam = req.body.idTeam
 
-    const listGamesInTeam = await listGamesInTeamModel(teamTag)
+    const listGamesInTeam = await listGamesInTeamModel(idTeam)
 
     if(!listGamesInTeam){
         let erro = "Erro ao listar jogos do time"
@@ -97,7 +97,7 @@ export async function insertPlayerController(req, res){
         let erro = "Erro ao cadastrar jogador"
         return res.status(400).json(erro)
     }
-    return res.status(200).json(registerPlayer)
+    return res.status(201).json(registerPlayer)
 }
 export async function searchPlayerController(req, res){
 
@@ -122,24 +122,12 @@ export async function searchPlayerTeamController(req,res){
     }
     return res.status(200).json(searchPlayerTeam)
 }
-export async function searchPlayerPositionController(req, res){
-
-    const description = req.body.description
-
-    const searchPlayerPosition = await searchPlayerByPositionModel(description)
-
-    if(!searchPlayerPosition){
-        let erro = "Erro ao pesquisar jogadores pela posição"
-        return res.status(400).json(erro)
-    }
-    return res.status(200).json(searchPlayerPosition)
-}
 export async function updatePlayerController(req, res){
     const idPlayer = req.body.idPlayer
     const age = req.body.age
     const status = req.body.status
 
-    const updatePlayer = await updatePlayerModel(idPlayer, age, status)
+    const updatePlayer = await updatePlayerModel(idPlayer, playerName, status)
 
     if(!updatePlayer){
         let erro = "Erro ao fazer alteração no jogador"
@@ -160,20 +148,6 @@ export async function listGamesController(req, res){
     }
     return res.status(200).json(listGames)
 }
-
-export async function listGamesBetweenDatesController(req, res){
-    const selectedDateA = req.body.selectedDateA
-    const selectedDateB = req.body.selectedDateB
-
-    const listGamesBetweenDates = await listGamesBetweenDatesModel(selectedDateA, selectedDateB)
-
-    if(!listGamesBetweenDates){
-        let erro = "Erro ao listar jogos"
-        return res.status(400).json(erro)
-    }
-    return res.status(200).json(listGamesBetweenDates)
-}
-
 export async function listPositionController(req, res){
     const listPosition = await listPositionModel()
     
@@ -181,7 +155,6 @@ export async function listPositionController(req, res){
 }
 
 export async function listFutureGamesController(req,res){
-    const actualDate = new Date()
     const formatDate = moment().format()
     const listFutureGames = await listFutureGamesModel(formatDate)
 
