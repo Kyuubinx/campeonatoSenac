@@ -52,7 +52,7 @@ export async function insertPlayerModel(playerName, idTeam, age, idPosition, sta
   }
 
   try {
-    const [results, fields] = await connection.query(`INSERT INTO player (idPlayer, playerName, idTeam, photo, age, idPosition, status) VALUES (null, '${playerName}', ${idTeam}, ${photo}, ${age}, ${idPosition}, ${status})`)
+    const [results, fields] = await connection.query(`INSERT INTO player (idPlayer, playerName, idTeam, photo, age, idPosition, status) VALUES (null, '${playerName}', ${idTeam}, "SEM FOTO", ${age}, ${idPosition}, '${status}')`)
     return results;
   } catch (errors) {
     console.log(errors)
