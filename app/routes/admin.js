@@ -14,7 +14,7 @@ adminRouter.get("/searchTeamByName", searchTeamController)
 adminRouter.get("/searchPlayerByName", searchPlayerController)
 adminRouter.get("/searchPlayerByTeam", searchPlayerTeamController)
 
-adminRouter.get("/listPlayersInTeam", listPlayersTeamController)
+adminRouter.get("/listPlayersInTeam/:id", listPlayersTeamController)
 adminRouter.get("/listPosition", listPositionController)
 adminRouter.get("/listGames", listGamesController)
 adminRouter.get("/listGamesInTeam", listGamesInTeamController)

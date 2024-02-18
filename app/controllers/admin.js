@@ -86,8 +86,8 @@ export async function playersController(req, res){
     return res.status(200).json(players)
 } 
 export async function listPlayersTeamController(req, res){
-    console.log(req.body)
-    const idTeam = req.body.idTeam
+    console.log(req.params.id)
+    const idTeam = req.params.id
 
     const team = await listPlayersInTeamModel(idTeam)
 
