@@ -29,13 +29,12 @@ export async function listLeagueModel() {
 
 export async function listPlayersInTeamModel(idTeam) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = ${idTeam}`)
+    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = '${idTeam}'`)
     return results
   } catch (errors) {
     console.log(errors)
   }
 }
-
 export async function insertTeamModel(teamName, teamTag) {
 
   const findTeam = await searchTeamByNameModel(teamName)
