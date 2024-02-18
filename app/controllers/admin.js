@@ -1,6 +1,6 @@
 import {connection} from "../../config/connection.js"
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -26,6 +26,7 @@ export async function insertTeamController(req, res){
     }
     return res.status(201).json(registerTeam)
 }
+
 export async function insertGameController(req, res){    
     
     const teamHome = req.body.teamHome
