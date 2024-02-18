@@ -26,6 +26,20 @@ export async function insertTeamController(req, res){
     }
     return res.status(201).json(registerTeam)
 }
+export async function insertGameController(req, res){    
+    
+    const teamHome = req.body.teamHome
+    const teamAwai = req.body.teamAwai
+    const league = req.body.league
+
+    const registerGame = await insertGameModel(teamHome, teamAwai, league)
+    if(!registerGame){
+        let erro = "Erro ao cadastrar time"
+        return res.status(400).json(erro)
+    }
+    return res.status(201).json(registerGame)
+}
+
 export async function searchTeamController(req, res){
 
     const teamName = req.body.teamName
@@ -71,7 +85,7 @@ export async function playersController(req, res){
     return res.status(200).json(players)
 } 
 export async function listPlayersTeamController(req, res){
-
+    console.log(req.body)
     const idTeam = req.body.idTeam
 
     const team = await listPlayersInTeamModel(idTeam)

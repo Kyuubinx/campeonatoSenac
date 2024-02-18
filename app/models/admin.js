@@ -50,7 +50,27 @@ export async function insertTeamModel(teamName, teamTag) {
     console.log(errors)
   }
 }
+export async function insertGameModel(teamHome, teamAwai, league) {
 
+  try {
+    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, goalHome, goalAway, idLeague, card, dateGame) VALUES (null,'${teamHome}','${teamAwai}',null,null,'${league}',null,null)`)
+    const updateLeague = await updateStatusLeague(league)
+    if (updateLeague > 0) {
+      return false
+    }
+    return results;
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+export async function updateStatusLeague(league) {
+  try {
+    const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE idLeague = ${league}`)
+    return result
+  } catch (errors) {
+    console.log(errors)
+  }
+}
 export async function insertPlayerModel(playerName, idTeam, age, idPosition, status) {
 
   const findPlayer = await searchPlayerByNameModel(playerName)

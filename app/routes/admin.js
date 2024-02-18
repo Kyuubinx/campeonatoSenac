@@ -6,6 +6,7 @@ export const adminRouter = Router()
 adminRouter.get("/teams", teamsController)
 adminRouter.get("/players", playersController)
 
+adminRouter.post("/insertGame", insertGameController)
 adminRouter.post("/insertTeam", insertTeamController)
 adminRouter.post("/insertPlayer", insertPlayerController)
 
