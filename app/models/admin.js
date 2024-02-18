@@ -18,6 +18,15 @@ export async function listPlayersModel() {
   }
 }
 
+export async function listLeagueModel() {
+  try {
+    const [results, fields] = await connection.query(`SELECT * FROM league`)
+    return results;
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
 export async function listPlayersInTeamModel(idTeam) {
   try {
     const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = ${idTeam}`)
