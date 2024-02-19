@@ -1,6 +1,6 @@
 import {connection} from "../../config/connection.js"
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -26,6 +26,21 @@ export async function insertTeamController(req, res){
     }
     return res.status(201).json(registerTeam)
 }
+
+export async function insertGameController(req, res){    
+    
+    const teamHome = req.body.teamHome
+    const teamAwai = req.body.teamAwai
+    const league = req.body.league
+
+    const registerGame = await insertGameModel(teamHome, teamAwai, league)
+    if(!registerGame){
+        let erro = "Erro ao cadastrar time"
+        return res.status(400).json(erro)
+    }
+    return res.status(201).json(registerGame)
+}
+
 export async function searchTeamController(req, res){
 
     const teamName = req.body.teamName
@@ -71,8 +86,8 @@ export async function playersController(req, res){
     return res.status(200).json(players)
 } 
 export async function listPlayersTeamController(req, res){
-
-    const idTeam = req.body.idTeam
+    console.log(req.params.id)
+    const idTeam = req.params.id
 
     const team = await listPlayersInTeamModel(idTeam)
 
@@ -149,6 +164,12 @@ export async function listGamesController(req, res){
 }
 export async function listPositionController(req, res){
     const listPosition = await listPositionModel()
+    
+    return res.status(200).json(listPosition)
+}
+
+export async function listLeagueController(req, res){
+    const listPosition = await listLeagueModel()
     
     return res.status(200).json(listPosition)
 }

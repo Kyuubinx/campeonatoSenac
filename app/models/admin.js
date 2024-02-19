@@ -18,15 +18,23 @@ export async function listPlayersModel() {
   }
 }
 
-export async function listPlayersInTeamModel(idTeam) {
+export async function listLeagueModel() {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = ${idTeam}`)
-    return results
+    const [results, fields] = await connection.query(`SELECT * FROM league`)
+    return results;
   } catch (errors) {
     console.log(errors)
   }
 }
 
+export async function listPlayersInTeamModel(idTeam) {
+  try {
+    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = '${idTeam}'`)
+    return results
+  } catch (errors) {
+    console.log(errors)
+  }
+}
 export async function insertTeamModel(teamName, teamTag) {
 
   const findTeam = await searchTeamByNameModel(teamName)
@@ -42,7 +50,23 @@ export async function insertTeamModel(teamName, teamTag) {
     console.log(errors)
   }
 }
+export async function insertGameModel(teamHome, teamAwai, league) {
 
+  try {
+    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, goalHome, goalAway, idLeague, card, dateGame) VALUES (null,${teamHome},${teamAwai},0,0,${league},0,null)`)
+    return results;
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+export async function updateStatusLeague(league) {
+  try {
+    const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE idLeague = ${league}`)
+    return result
+  } catch (errors) {
+    console.log(errors)
+  }
+}
 export async function insertPlayerModel(playerName, idTeam, age, idPosition, status) {
 
   const findPlayer = await searchPlayerByNameModel(playerName)
@@ -52,7 +76,7 @@ export async function insertPlayerModel(playerName, idTeam, age, idPosition, sta
   }
 
   try {
-    const [results, fields] = await connection.query(`INSERT INTO player (idPlayer, playerName, idTeam, photo, age, idPosition, status) VALUES (null, '${playerName}', ${idTeam}, ${photo}, ${age}, ${idPosition}, ${status})`)
+    const [results, fields] = await connection.query(`INSERT INTO player (idPlayer, playerName, idTeam, photo, age, idPosition, status) VALUES (null, '${playerName}', ${idTeam}, "SEM FOTO", ${age}, ${idPosition}, '${status}')`)
     return results;
   } catch (errors) {
     console.log(errors)
