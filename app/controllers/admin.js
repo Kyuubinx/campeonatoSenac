@@ -1,6 +1,6 @@
 import {connection} from "../../config/connection.js"
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -30,10 +30,10 @@ export async function insertTeamController(req, res){
 export async function insertGameController(req, res){    
     
     const teamHome = req.body.teamHome
-    const teamAwai = req.body.teamAwai
+    const teamAway = req.body.teamAway
     const league = req.body.league
 
-    const registerGame = await insertGameModel(teamHome, teamAwai, league)
+    const registerGame = await insertGameModel(teamHome, teamAway, league)
     if(!registerGame){
         let erro = "Erro ao cadastrar time"
         return res.status(400).json(erro)
@@ -43,7 +43,7 @@ export async function insertGameController(req, res){
 
 export async function searchTeamController(req, res){
 
-    const teamName = req.body.teamName
+    const teamName = req.params.teamName
 
     const searchTeam = await searchTeamByNameModel(teamName)
 
@@ -66,7 +66,7 @@ export async function updateActiveTeamController(req, res){
     return res.status(200).json(updateTeam)
 }
 export async function listGamesInTeamController(req, res){
-    const idTeam = req.body.idTeam
+    const idTeam = req.params.idTeam
 
     const listGamesInTeam = await listGamesInTeamModel(idTeam)
 
@@ -86,7 +86,7 @@ export async function playersController(req, res){
     return res.status(200).json(players)
 } 
 export async function listPlayersTeamController(req, res){
-    console.log(req.params.id)
+
     const idTeam = req.params.id
 
     const team = await listPlayersInTeamModel(idTeam)
@@ -115,7 +115,7 @@ export async function insertPlayerController(req, res){
 }
 export async function searchPlayerController(req, res){
 
-    const playerName = req.body.playerName
+    const playerName = req.params.playerName
 
     const searchPlayer = await searchPlayerByNameModel(playerName)
 
@@ -126,7 +126,7 @@ export async function searchPlayerController(req, res){
     return res.status(200).json(searchPlayer)
 }
 export async function searchPlayerTeamController(req,res){
-    const teamName = req.body.playerTeam
+    const teamName = req.params.playerTeam
 
     const searchPlayerTeam = await searchPlayerByTeamModel(teamName)
 
@@ -152,8 +152,6 @@ export async function updatePlayerController(req, res){
 
 export async function listGamesController(req, res){
     
-    const gameTeam = req.body.gameTeam
-
     const listGames = await listGamesModel()
 
     if(!listGames){
@@ -179,4 +177,16 @@ export async function listFutureGamesController(req,res){
     const listFutureGames = await listFutureGamesModel(formatDate)
 
     return res.status(200).json(listFutureGames)
+}
+
+export async function listGameController(req, res){
+    const idGame = req.params.idGame
+
+    const listGame = await listGameModel(idGame)
+
+    if(!listGame){
+        let erro = "Erro ao listar jogos do time"
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(listGame)
 }

@@ -162,6 +162,15 @@ export async function listFutureGamesModel(dateGame) {
   }
 }
 
+export async function listGameModel(idGame) {
+  try {
+    const [results, fields] = await connection.query(`SELECT * FROM game WHERE idGame = ${idGame}`)
+    return results
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
 
 
 

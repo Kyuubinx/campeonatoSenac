@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16-Fev-2024 às 01:07
+-- Tempo de geração: 20-Fev-2024 às 01:32
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -43,8 +43,8 @@ CREATE TABLE `game` (
 --
 
 INSERT INTO `game` (`idGame`, `idTeamHome`, `idTeamAway`, `goalHome`, `goalAway`, `idLeague`, `card`, `dateGame`) VALUES
-(5, 7, 8, 0, 0, 1, 0, '2024-02-14 23:52:25'),
-(6, 13, 12, 0, 0, 1, 0, '2024-02-16 23:52:25');
+(5, 7, 8, 0, 0, 1, 0, '2024-02-14 13:52:25'),
+(6, 13, 12, 0, 0, 1, 0, '2024-02-17 12:52:25');
 
 -- --------------------------------------------------------
 
@@ -55,15 +55,16 @@ INSERT INTO `game` (`idGame`, `idTeamHome`, `idTeamAway`, `goalHome`, `goalAway`
 CREATE TABLE `league` (
   `idLeague` int(11) NOT NULL,
   `nameLeague` varchar(80) NOT NULL,
-  `gender` enum('M','F') NOT NULL
+  `gender` enum('M','F') NOT NULL,
+  `active` enum('true','false') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `league`
 --
 
-INSERT INTO `league` (`idLeague`, `nameLeague`, `gender`) VALUES
-(1, 'A', 'M');
+INSERT INTO `league` (`idLeague`, `nameLeague`, `gender`, `active`) VALUES
+(1, 'A', 'M', 'false');
 
 -- --------------------------------------------------------
 
@@ -111,11 +112,11 @@ CREATE TABLE `position` (
 --
 
 INSERT INTO `position` (`idPosition`, `description`) VALUES
-(1, 'Pivot'),
-(2, 'Fixed'),
-(3, 'Right wing'),
-(4, 'Left wing'),
-(5, 'Goalkeeper');
+(1, 'Pivô'),
+(2, 'Fixo'),
+(3, 'Ala direito'),
+(4, 'Ala esquerdo'),
+(5, 'Goleiro');
 
 -- --------------------------------------------------------
 
@@ -165,7 +166,8 @@ INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idLeague`, `gender`, `acti
 (14, 'Caxias', 'CAX', 1, 'M', 'true', ''),
 (15, 'Madureira', 'MAD', 1, 'M', 'true', ''),
 (16, 'Palmeiras', 'PAL', 1, 'M', 'true', ''),
-(17, 'Bragantino', 'BRA', 1, 'M', 'true', '');
+(17, 'Bragantino', 'BRA', 1, 'M', 'true', ''),
+(21, 'GUARANI DE BAGE', 'GDB', 1, 'M', 'true', '');
 
 -- --------------------------------------------------------
 
@@ -310,7 +312,7 @@ ALTER TABLE `ranking`
 -- AUTO_INCREMENT de tabela `team`
 --
 ALTER TABLE `team`
-  MODIFY `idTeam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idTeam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `user`
