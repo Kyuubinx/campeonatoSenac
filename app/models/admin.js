@@ -63,7 +63,7 @@ export async function insertTeamModel(teamName, teamTag) {
 export async function insertGameModel(teamHome, teamAwai, round, league) {
 
   try {
-    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, card, dateGame) VALUES (null,${teamHome},${teamAwai},${round},0,0,${league},0,null)`)
+    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, cardHome, cardAway, gameResult, dateGame) VALUES (null,${teamHome},${teamAwai},${round},0,0,${league},0,0,null, null)`)
     console.log(results, fields)
 
     const updateActive = updateLeagueActive(league)
@@ -163,6 +163,15 @@ export async function updateLeagueActive(league) {
     console.log(errors)
   }
 }
+export async function updatePoint(league) {
+  try {
+    console.log(league)
+    const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE  idLeague = ${league}`)
+    return result
+  } catch (errors) {
+    console.log(errors)
+  }
+}
 
 export async function listGamesModel(round) {
   try {
@@ -192,7 +201,8 @@ export async function listFutureGamesModel(dateGame) {
 
 export async function listGameModel(idGame) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM game A, team B WHERE A.idTeamHome = B.idTeam AND A.idTeamAway = B.idTeam AND A.idGame = ${idGame}`)
+    const [results, fields] = await connection.query(`SELECT * FROM game WHERE idGame = ${idGame}`)
+    console.log(results)
     return results
   } catch (errors) {
     console.log(errors)

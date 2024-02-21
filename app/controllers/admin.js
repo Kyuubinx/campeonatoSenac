@@ -149,6 +149,23 @@ export async function updatePlayerController(req, res){
     }
     return res.status(200).json(updatePlayer)
 }
+export async function updateGameController(req, res){
+
+    const point = req.body.points
+    const goalHome = req.body.goalHome
+    const goalAway = req.body.goalAway
+    const cardHome = req.body.cardHome
+    const cardAway = req.body.cardAway
+    const status = req.body.status
+
+    const updatePlayer = await updatePoint()
+
+    if(!updatePlayer){
+        let erro = "Erro ao fazer alteração de vitória"
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(updatePlayer)
+}
 
 export async function listGamesController(req, res){
     

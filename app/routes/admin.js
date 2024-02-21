@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { insertGameController, playersController, insertPlayerController, teamsController, searchTeamController, searchPlayerController, searchPlayerTeamController, listPlayersTeamController, updateActiveTeamController, insertTeamController, listGamesController, updatePlayerController, listGamesInTeamController, listPositionController, listFutureGamesController, listLeagueController, listGameController, validateController, loginController } from "../controllers/admin.js"
+import { insertGameController, playersController, insertPlayerController, teamsController, searchTeamController, searchPlayerController, searchPlayerTeamController, listPlayersTeamController, updateActiveTeamController, insertTeamController, listGamesController, updatePlayerController, listGamesInTeamController, listPositionController, listFutureGamesController, listLeagueController, listGameController, validateController, loginController, updateGameController } from "../controllers/admin.js"
 
 export const adminRouter = Router()
 
@@ -24,5 +24,7 @@ adminRouter.get("/listFutureGames", listFutureGamesController)
 
 adminRouter.patch("/updateActiveTeam", updateActiveTeamController)
 adminRouter.patch("/updatePlayer", updatePlayerController)
+adminRouter.patch("/updateGame", updateGameController)
+
 
 adminRouter.get("/listLeague", listLeagueController)
