@@ -1,6 +1,6 @@
 import {connection} from "../../config/connection.js"
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -43,9 +43,9 @@ export async function insertGameController(req, res){
 
 export async function searchTeamController(req, res){
 
-    const teamName = req.params.teamName
+    const idTeam = req.params.idTeam
 
-    const searchTeam = await searchTeamByNameModel(teamName)
+    const searchTeam = await searchTeamByNameModel(idTeam)
 
     if(!searchTeam){
         let erro = "Erro ao pesquisar time"
@@ -115,9 +115,9 @@ export async function insertPlayerController(req, res){
 }
 export async function searchPlayerController(req, res){
 
-    const playerName = req.params.playerName
+    const idPlayer = req.params.idPlayer
 
-    const searchPlayer = await searchPlayerByNameModel(playerName)
+    const searchPlayer = await searchPlayerByNameModel(idPlayer)
 
     if(!searchPlayer){
         let erro = "Erro ao pesquisar jogador"
@@ -126,9 +126,9 @@ export async function searchPlayerController(req, res){
     return res.status(200).json(searchPlayer)
 }
 export async function searchPlayerTeamController(req,res){
-    const teamName = req.params.playerTeam
+    const idTeam = req.params.idTeam
 
-    const searchPlayerTeam = await searchPlayerByTeamModel(teamName)
+    const searchPlayerTeam = await searchPlayerByTeamModel(idTeam)
 
     if(!searchPlayerTeam){
         let erro = "Erro ao pesquisar jogadores do time"
@@ -189,4 +189,15 @@ export async function listGameController(req, res){
         return res.status(400).json(erro)
     }
     return res.status(200).json(listGame)
+}
+export async function loginController(req, res){
+    const userName = req.body.userName
+    const password = req.body.password
+
+    const user = await loginModel(userName,password)
+    return res.status(200).json(user)
+}
+
+export async function validateController(req, res){
+    
 }

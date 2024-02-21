@@ -1,4 +1,14 @@
 import { connection } from "../../config/connection.js";
+import  JWT  from "jsonwebtoken";
+
+export async function listUsersModel() {
+  try {
+    const [results, fields] = await connection.query(`SELECT * FROM users`)
+    return results;
+  } catch (errors) {
+    console.log(errors)
+  }
+}
 
 export async function listTeamsModel() {
   try {
@@ -92,27 +102,27 @@ export async function listPositionModel() {
   }
 }
 
-export async function searchTeamByNameModel(teamName) {
+export async function searchTeamByNameModel(idTeam) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM team WHERE teamName = '${teamName}'`)
+    const [results, fields] = await connection.query(`SELECT * FROM team WHERE idTeam = '${idTeam}'`)
     return results;
   } catch (errors) {
     console.log(errors)
   }
 }
 
-export async function searchPlayerByNameModel(playerName) {
+export async function searchPlayerByNameModel(idPlayer) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM player WHERE playerName = '${playerName}'`)
+    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = '${idPlayer}'`)
     return results;
   } catch (errors) {
     console.log(errors)
   }
 }
 
-export async function searchPlayerByTeamModel(teamName) {
+export async function searchPlayerByTeamModel(idTeam) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM player B, team A WHERE A.teamName = '${teamName}' and B.idTeam = A.idTeam;`)
+    const [results, fields] = await connection.query(`SELECT * FROM player B, team A WHERE A.idTeam = '${idTeam}' and B.idTeam = A.idTeam;`)
     return results
   } catch (errors) {
     console.log(errors)
@@ -171,6 +181,28 @@ export async function listGameModel(idGame) {
   }
 }
 
+export async function loginModel(userName,password) {
+  try {
+    const [results, fields] = await connection.query(`SELECT * FROM user WHERE userName = '${userName}' AND password = '${password}'`)
+    console.log(results)
+
+    const token = JWT.sign({
+      admin : true, typeAdmin : "admin", idType : results[0].idUser
+    },"IBUJHHY7BGFTRFPs$",
+    {
+      expiresIn: "24h",
+      subject: String(results[0].idUser)
+    }
+    )
+    const user = {
+      ...results[0],
+      token: token
+    }
+    return user
+  } catch (errors) {
+    console.log(errors)
+  }
+}
 
 
 
