@@ -39,7 +39,7 @@ export async function listLeagueModel() {
 
 export async function listPlayersInTeamModel(idTeam) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = '${idTeam}'`)
+    const [results, fields] = await connection.query(`SELECT * FROM player A, team B, position C WHERE A.idTeam = B.idTeam AND A.idPosition = C.idPosition AND A.idTeam = '${idTeam}'`)
     return results
   } catch (errors) {
     console.log(errors)
@@ -60,11 +60,19 @@ export async function insertTeamModel(teamName, teamTag) {
     console.log(errors)
   }
 }
-export async function insertGameModel(teamHome, teamAwai, league) {
+export async function insertGameModel(teamHome, teamAwai, round, league) {
 
   try {
-    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, goalHome, goalAway, idLeague, card, dateGame) VALUES (null,${teamHome},${teamAwai},0,0,${league},0,null)`)
-    return results;
+    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, cardHome, cardAway, dateGame) VALUES (null,${teamHome},${teamAwai},${round},0,0,${league},0,0,null, null)`)
+    console.log(results, fields)
+
+    const updateActive = updateLeagueActive(league)
+    if(updateActive.length < 0){
+      return false
+    }else{
+      return results;
+    }
+
   } catch (errors) {
     console.log(errors)
   }
@@ -113,7 +121,7 @@ export async function searchTeamByNameModel(idTeam) {
 
 export async function searchPlayerByNameModel(idPlayer) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = '${idPlayer}'`)
+    const [results, fields] = await connection.query(`SELECT * FROM player A, team B, position C WHERE A.idTeam = B.idTeam AND A.idPosition = C.idPosition AND A.idPlayer ='${idPlayer}'`)
     return results;
   } catch (errors) {
     console.log(errors)
@@ -146,9 +154,28 @@ export async function updatePlayerModel(idPlayer, playerName, status) {
   }
 }
 
-export async function listGamesModel() {
+export async function updateLeagueActive(league) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM game`)
+    console.log(league)
+    const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE  idLeague = ${league}`)
+    return result
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+export async function updatePoint(idGame, goalHome, goalAway, cardHome, cardAway) {
+  try {
+
+    const [result, fiels] = await connection.query(`UPDATE game SET goalHome = ${goalHome} , goalAway = ${goalAway}, cardHome = ${cardHome}, cardAway = ${cardAway}  WHERE idGame= ${idGame}`)
+    return result
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
+export async function listGamesModel(round) {
+  try {
+    const [results, fields] = await connection.query(`SELECT * FROM game WHERE round = ${round}`)
     return results
   } catch (errors) {
     console.log(errors)
@@ -175,6 +202,7 @@ export async function listFutureGamesModel(dateGame) {
 export async function listGameModel(idGame) {
   try {
     const [results, fields] = await connection.query(`SELECT * FROM game WHERE idGame = ${idGame}`)
+    console.log(results)
     return results
   } catch (errors) {
     console.log(errors)
@@ -184,7 +212,6 @@ export async function listGameModel(idGame) {
 export async function loginModel(userName,password) {
   try {
     const [results, fields] = await connection.query(`SELECT * FROM user WHERE userName = '${userName}' AND password = '${password}'`)
-    console.log(results)
 
     const token = JWT.sign({
       admin : true, typeAdmin : "admin", idType : results[0].idUser

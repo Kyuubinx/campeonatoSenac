@@ -1,6 +1,6 @@
 import {connection} from "../../config/connection.js"
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePoint} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -31,9 +31,9 @@ export async function insertGameController(req, res){
     
     const teamHome = req.body.teamHome
     const teamAway = req.body.teamAway
+    const round = req.body.round
     const league = req.body.league
-
-    const registerGame = await insertGameModel(teamHome, teamAway, league)
+    const registerGame = await insertGameModel(teamHome, teamAway, round, league)
     if(!registerGame){
         let erro = "Erro ao cadastrar time"
         return res.status(400).json(erro)
@@ -87,7 +87,7 @@ export async function playersController(req, res){
 } 
 export async function listPlayersTeamController(req, res){
 
-    const idTeam = req.params.id
+    const idTeam = req.params.idTeam
 
     const team = await listPlayersInTeamModel(idTeam)
 
@@ -149,10 +149,28 @@ export async function updatePlayerController(req, res){
     }
     return res.status(200).json(updatePlayer)
 }
+export async function updateGameController(req, res){
+
+    const idGame = req.body.idGame
+    const goalHome = req.body.goalHome
+    const goalAway = req.body.goalAway
+    const cardHome = req.body.cardHome
+    const cardAway = req.body.cardAway
+
+    const updatePlayer = await updatePoint(idGame, goalHome, goalAway, cardHome, cardAway)
+
+    if(!updatePlayer){
+        let erro = "Erro ao fazer alteração de vitória"
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(updatePlayer)
+}
 
 export async function listGamesController(req, res){
     
-    const listGames = await listGamesModel()
+    const round = req.params.round
+
+    const listGames = await listGamesModel(round)
 
     if(!listGames){
         let erro = "Erro ao pesquisar jogos do time"

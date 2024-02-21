@@ -1,6 +1,5 @@
 import { Router } from "express"
-import { tokenValidator } from "../middleware/tokenValidator.js"
-import { insertGameController, playersController, insertPlayerController, teamsController, searchTeamController, searchPlayerController, searchPlayerTeamController, listPlayersTeamController, updateActiveTeamController, insertTeamController, listGamesController, updatePlayerController, listGamesInTeamController, listPositionController, listFutureGamesController, listLeagueController, listGameController, validateController, loginController } from "../controllers/admin.js"
+import { insertGameController, playersController, insertPlayerController, teamsController, searchTeamController, searchPlayerController, searchPlayerTeamController, listPlayersTeamController, updateActiveTeamController, insertTeamController, listGamesController, updatePlayerController, listGamesInTeamController, listPositionController, listFutureGamesController, listLeagueController, listGameController, validateController, loginController, updateGameController } from "../controllers/admin.js"
 
 export const adminRouter = Router()
 
@@ -13,17 +12,21 @@ adminRouter.post("/insertPlayer", tokenValidator, insertPlayerController)
 adminRouter.post("/login", loginController)
 
 adminRouter.get("/searchTeamByName/:idTeam", searchTeamController)
-adminRouter.get("/searchPlayerByName/:idPlayer", searchPlayerController)
+adminRouter.get("/searchPlayerById/:idPlayer", searchPlayerController)
 adminRouter.get("/searchPlayerByTeam/:idTeam", searchPlayerTeamController)
 
 adminRouter.get("/listPlayersInTeam/:idTeam", listPlayersTeamController)
 adminRouter.get("/listPosition", listPositionController)
 adminRouter.get("/listGame/:idGame", listGameController)
-adminRouter.get("/listGames", listGamesController)
+adminRouter.get("/listGames/:round", listGamesController)
 adminRouter.get("/listGamesInTeam/:idTeam", listGamesInTeamController)
 adminRouter.get("/listFutureGames", listFutureGamesController)
 
 adminRouter.patch("/updateActiveTeam", tokenValidator, updateActiveTeamController)
 adminRouter.patch("/updatePlayer", tokenValidator, updatePlayerController)
+adminRouter.patch("/updateActiveTeam", updateActiveTeamController)
+adminRouter.patch("/updatePlayer", updatePlayerController)
+adminRouter.patch("/updateGame", updateGameController)
+
 
 adminRouter.get("/listLeague", listLeagueController)
