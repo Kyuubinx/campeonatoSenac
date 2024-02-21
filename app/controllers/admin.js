@@ -1,6 +1,6 @@
 import {connection} from "../../config/connection.js"
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePoint} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -151,14 +151,13 @@ export async function updatePlayerController(req, res){
 }
 export async function updateGameController(req, res){
 
-    const point = req.body.points
+    const idGame = req.body.idGame
     const goalHome = req.body.goalHome
     const goalAway = req.body.goalAway
     const cardHome = req.body.cardHome
     const cardAway = req.body.cardAway
-    const status = req.body.status
 
-    const updatePlayer = await updatePoint()
+    const updatePlayer = await updatePoint(idGame, goalHome, goalAway, cardHome, cardAway)
 
     if(!updatePlayer){
         let erro = "Erro ao fazer alteração de vitória"
