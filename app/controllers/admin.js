@@ -87,7 +87,7 @@ export async function playersController(req, res){
 } 
 export async function listPlayersTeamController(req, res){
 
-    const idTeam = req.params.id
+    const idTeam = req.params.idTeam
 
     const team = await listPlayersInTeamModel(idTeam)
 

@@ -1,5 +1,4 @@
 import { Router } from "express"
-import { tokenValidator } from "../middleware/tokenValidator.js"
 import { insertGameController, playersController, insertPlayerController, teamsController, searchTeamController, searchPlayerController, searchPlayerTeamController, listPlayersTeamController, updateActiveTeamController, insertTeamController, listGamesController, updatePlayerController, listGamesInTeamController, listPositionController, listFutureGamesController, listLeagueController, listGameController, validateController, loginController } from "../controllers/admin.js"
 
 export const adminRouter = Router()

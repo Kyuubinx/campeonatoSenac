@@ -39,7 +39,8 @@ export async function listLeagueModel() {
 
 export async function listPlayersInTeamModel(idTeam) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = '${idTeam}'`)
+    const [results, fields] = await connection.query(`SELECT * FROM player A, team B, position C WHERE A.idTeam = B.idTeam AND A.idPosition = C.idPosition AND A.idTeam = '${idTeam}'`)
+    console.log(results)
     return results
   } catch (errors) {
     console.log(errors)
@@ -113,7 +114,7 @@ export async function searchTeamByNameModel(idTeam) {
 
 export async function searchPlayerByNameModel(idPlayer) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM player WHERE idTeam = '${idPlayer}'`)
+    const [results, fields] = await connection.query(`SELECT * FROM player A, team B, position C WHERE A.idTeam = B.idTeam AND A.idPosition = C.idPosition AND A.idPlayer ='${idPlayer}'`)
     return results;
   } catch (errors) {
     console.log(errors)
