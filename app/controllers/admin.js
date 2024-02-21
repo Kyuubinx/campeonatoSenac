@@ -31,9 +31,9 @@ export async function insertGameController(req, res){
     
     const teamHome = req.body.teamHome
     const teamAway = req.body.teamAway
+    const round = req.body.round
     const league = req.body.league
-
-    const registerGame = await insertGameModel(teamHome, teamAway, league)
+    const registerGame = await insertGameModel(teamHome, teamAway, round, league)
     if(!registerGame){
         let erro = "Erro ao cadastrar time"
         return res.status(400).json(erro)
@@ -152,7 +152,9 @@ export async function updatePlayerController(req, res){
 
 export async function listGamesController(req, res){
     
-    const listGames = await listGamesModel()
+    const round = req.params.round
+
+    const listGames = await listGamesModel(round)
 
     if(!listGames){
         let erro = "Erro ao pesquisar jogos do time"

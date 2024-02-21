@@ -12,13 +12,13 @@ adminRouter.post("/insertPlayer", insertPlayerController)
 adminRouter.post("/login", loginController)
 
 adminRouter.get("/searchTeamByName/:idTeam", searchTeamController)
-adminRouter.get("/searchPlayerByName/:idPlayer", searchPlayerController)
+adminRouter.get("/searchPlayerById/:idPlayer", searchPlayerController)
 adminRouter.get("/searchPlayerByTeam/:idTeam", searchPlayerTeamController)
 
 adminRouter.get("/listPlayersInTeam/:idTeam", listPlayersTeamController)
 adminRouter.get("/listPosition", listPositionController)
 adminRouter.get("/listGame/:idGame", listGameController)
-adminRouter.get("/listGames", listGamesController)
+adminRouter.get("/listGames/:round", listGamesController)
 adminRouter.get("/listGamesInTeam/:idTeam", listGamesInTeamController)
 adminRouter.get("/listFutureGames", listFutureGamesController)
 
