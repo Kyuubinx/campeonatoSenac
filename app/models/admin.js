@@ -154,7 +154,7 @@ export async function updatePlayerModel(idPlayer, playerName, status) {
   }
 }
 
-export async function updateLeagueActive(league) {
+export async function updateLeagueActiveModel(league) {
   try {
     console.log(league)
     const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE  idLeague = ${league}`)
@@ -163,7 +163,7 @@ export async function updateLeagueActive(league) {
     console.log(errors)
   }
 }
-export async function updatePoint(idGame, goalHome, goalAway, cardHome, cardAway) {
+export async function updatePointModel(idGame, goalHome, goalAway, cardHome, cardAway) {
   try {
 
     const [result, fiels] = await connection.query(`UPDATE game SET goalHome = ${goalHome} , goalAway = ${goalAway}, cardHome = ${cardHome}, cardAway = ${cardAway}  WHERE idGame= ${idGame}`)

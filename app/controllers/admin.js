@@ -1,6 +1,5 @@
-import {connection} from "../../config/connection.js"
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePoint} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePoint, updatePointModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -157,7 +156,7 @@ export async function updateGameController(req, res){
     const cardHome = req.body.cardHome
     const cardAway = req.body.cardAway
 
-    const updatePlayer = await updatePoint(idGame, goalHome, goalAway, cardHome, cardAway)
+    const updatePlayer = await updatePointModel(idGame, goalHome, goalAway, cardHome, cardAway)
 
     if(!updatePlayer){
         let erro = "Erro ao fazer alteração de vitória"
@@ -214,8 +213,4 @@ export async function loginController(req, res){
 
     const user = await loginModel(userName,password)
     return res.status(200).json(user)
-}
-
-export async function validateController(req, res){
-    
 }

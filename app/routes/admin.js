@@ -24,9 +24,8 @@ adminRouter.get("/listFutureGames", listFutureGamesController)
 
 adminRouter.patch("/updateActiveTeam", tokenValidator, updateActiveTeamController)
 adminRouter.patch("/updatePlayer", tokenValidator, updatePlayerController)
-adminRouter.patch("/updateActiveTeam", updateActiveTeamController)
-adminRouter.patch("/updatePlayer", updatePlayerController)
-adminRouter.patch("/updateGame", updateGameController)
-
+adminRouter.patch("/updateActiveTeam",tokenValidator, updateActiveTeamController)
+adminRouter.patch("/updatePlayer",tokenValidator, updatePlayerController)
+adminRouter.patch("/updateGame",tokenValidator, updateGameController)
 
 adminRouter.get("/listLeague", listLeagueController)
