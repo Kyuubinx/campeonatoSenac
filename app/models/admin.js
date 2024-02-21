@@ -192,7 +192,7 @@ export async function listFutureGamesModel(dateGame) {
 
 export async function listGameModel(idGame) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM game WHERE idGame = ${idGame}`)
+    const [results, fields] = await connection.query(`SELECT * FROM game A, team B WHERE A.idTeamHome = B.idTeam AND A.idTeamAway = B.idTeam AND A.idGame = ${idGame}`)
     return results
   } catch (errors) {
     console.log(errors)
