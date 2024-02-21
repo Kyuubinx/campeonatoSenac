@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21/02/2024 às 20:19
+-- Tempo de geração: 21/02/2024 às 22:16
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.0.28
 
@@ -35,7 +35,8 @@ CREATE TABLE `game` (
   `goalHome` int(11) DEFAULT 0,
   `goalAway` int(11) NOT NULL DEFAULT 0,
   `idLeague` int(11) NOT NULL,
-  `card` int(2) NOT NULL DEFAULT 0,
+  `cardHome` int(2) NOT NULL DEFAULT 0,
+  `cardAway` char(2) NOT NULL DEFAULT '0',
   `dateGame` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -43,372 +44,181 @@ CREATE TABLE `game` (
 -- Despejando dados para a tabela `game`
 --
 
-INSERT INTO `game` (`idGame`, `idTeamHome`, `idTeamAway`, `round`, `goalHome`, `goalAway`, `idLeague`, `card`, `dateGame`) VALUES
-(5, 7, 8, 0, 0, 0, 1, 0, '2024-02-14 23:52:25'),
-(6, 13, 12, 0, 0, 0, 1, 0, '2024-02-16 23:52:25'),
-(277, 7, 8, 0, 0, 0, 1, 0, NULL),
-(278, 7, 8, 0, 0, 0, 1, 0, NULL),
-(369, 10, 17, 0, 0, 0, 1, 0, NULL),
-(370, 7, 17, 0, 0, 0, 1, 0, NULL),
-(371, 8, 16, 0, 0, 0, 1, 0, NULL),
-(372, 9, 15, 0, 0, 0, 1, 0, NULL),
-(373, 10, 14, 0, 0, 0, 1, 0, NULL),
-(374, 12, 13, 0, 0, 0, 1, 0, NULL),
-(375, 17, 16, 0, 0, 0, 1, 0, NULL),
-(376, 7, 15, 0, 0, 0, 1, 0, NULL),
-(377, 8, 14, 0, 0, 0, 1, 0, NULL),
-(378, 9, 13, 0, 0, 0, 1, 0, NULL),
-(379, 10, 12, 0, 0, 0, 1, 0, NULL),
-(380, 16, 15, 0, 0, 0, 1, 0, NULL),
-(381, 17, 14, 0, 0, 0, 1, 0, NULL),
-(382, 7, 13, 0, 0, 0, 1, 0, NULL),
-(383, 8, 12, 0, 0, 0, 1, 0, NULL),
-(384, 9, 10, 0, 0, 0, 1, 0, NULL),
-(385, 15, 14, 0, 0, 0, 1, 0, NULL),
-(386, 16, 13, 0, 0, 0, 1, 0, NULL),
-(387, 17, 12, 0, 0, 0, 1, 0, NULL),
-(388, 7, 10, 0, 0, 0, 1, 0, NULL),
-(389, 8, 9, 0, 0, 0, 1, 0, NULL),
-(390, 14, 13, 0, 0, 0, 1, 0, NULL),
-(391, 15, 12, 0, 0, 0, 1, 0, NULL),
-(392, 16, 10, 0, 0, 0, 1, 0, NULL),
-(393, 17, 9, 0, 0, 0, 1, 0, NULL),
-(394, 7, 8, 0, 0, 0, 1, 0, NULL),
-(395, 13, 12, 0, 0, 0, 1, 0, NULL),
-(396, 14, 10, 0, 0, 0, 1, 0, NULL),
-(397, 15, 9, 0, 0, 0, 1, 0, NULL),
-(398, 16, 8, 0, 0, 0, 1, 0, NULL),
-(399, 17, 7, 0, 0, 0, 1, 0, NULL),
-(400, 12, 10, 0, 0, 0, 1, 0, NULL),
-(401, 13, 9, 0, 0, 0, 1, 0, NULL),
-(402, 14, 8, 0, 0, 0, 1, 0, NULL),
-(403, 15, 7, 0, 0, 0, 1, 0, NULL),
-(404, 16, 17, 0, 0, 0, 1, 0, NULL),
-(405, 10, 9, 0, 0, 0, 1, 0, NULL),
-(406, 12, 8, 0, 0, 0, 1, 0, NULL),
-(407, 13, 7, 0, 0, 0, 1, 0, NULL),
-(408, 14, 17, 0, 0, 0, 1, 0, NULL),
-(409, 15, 16, 0, 0, 0, 1, 0, NULL),
-(410, 9, 8, 0, 0, 0, 1, 0, NULL),
-(411, 10, 7, 0, 0, 0, 1, 0, NULL),
-(412, 12, 17, 0, 0, 0, 1, 0, NULL),
-(413, 13, 16, 0, 0, 0, 1, 0, NULL),
-(414, 14, 15, 0, 0, 0, 1, 0, NULL),
-(415, 7, 8, 0, 0, 0, 1, 0, NULL),
-(416, 17, 9, 0, 0, 0, 1, 0, NULL),
-(417, 16, 10, 0, 0, 0, 1, 0, NULL),
-(418, 15, 12, 0, 0, 0, 1, 0, NULL),
-(419, 14, 13, 0, 0, 0, 1, 0, NULL),
-(420, 8, 9, 0, 0, 0, 1, 0, NULL),
-(421, 7, 10, 0, 0, 0, 1, 0, NULL),
-(422, 17, 12, 0, 0, 0, 1, 0, NULL),
-(423, 16, 13, 0, 0, 0, 1, 0, NULL),
-(424, 15, 14, 0, 0, 0, 1, 0, NULL),
-(425, 9, 10, 0, 0, 0, 1, 0, NULL),
-(426, 8, 12, 0, 0, 0, 1, 0, NULL),
-(427, 7, 13, 0, 0, 0, 1, 0, NULL),
-(428, 17, 14, 0, 0, 0, 1, 0, NULL),
-(429, 16, 15, 0, 0, 0, 1, 0, NULL),
-(430, 10, 12, 0, 0, 0, 1, 0, NULL),
-(431, 9, 13, 0, 0, 0, 1, 0, NULL),
-(432, 8, 14, 0, 0, 0, 1, 0, NULL),
-(433, 7, 15, 0, 0, 0, 1, 0, NULL),
-(434, 17, 16, 0, 0, 0, 1, 0, NULL),
-(435, 12, 13, 0, 0, 0, 1, 0, NULL),
-(436, 10, 14, 0, 0, 0, 1, 0, NULL),
-(437, 9, 15, 0, 0, 0, 1, 0, NULL),
-(438, 8, 16, 0, 0, 0, 1, 0, NULL),
-(439, 7, 17, 0, 0, 0, 1, 0, NULL),
-(440, 13, 14, 0, 0, 0, 1, 0, NULL),
-(441, 12, 15, 0, 0, 0, 1, 0, NULL),
-(442, 10, 16, 0, 0, 0, 1, 0, NULL),
-(443, 9, 17, 0, 0, 0, 1, 0, NULL),
-(444, 8, 7, 0, 0, 0, 1, 0, NULL),
-(445, 14, 15, 0, 0, 0, 1, 0, NULL),
-(446, 13, 16, 0, 0, 0, 1, 0, NULL),
-(447, 12, 17, 0, 0, 0, 1, 0, NULL),
-(448, 10, 7, 0, 0, 0, 1, 0, NULL),
-(449, 9, 8, 0, 0, 0, 1, 0, NULL),
-(450, 15, 16, 0, 0, 0, 1, 0, NULL),
-(451, 14, 17, 0, 0, 0, 1, 0, NULL),
-(452, 13, 7, 0, 0, 0, 1, 0, NULL),
-(453, 12, 8, 0, 0, 0, 1, 0, NULL),
-(454, 10, 9, 0, 0, 0, 1, 0, NULL),
-(455, 16, 17, 0, 0, 0, 1, 0, NULL),
-(456, 15, 7, 0, 0, 0, 1, 0, NULL),
-(457, 14, 8, 0, 0, 0, 1, 0, NULL),
-(458, 13, 9, 0, 0, 0, 1, 0, NULL),
-(459, 12, 10, 0, 0, 0, 1, 0, NULL),
-(460, 7, 17, 0, 0, 0, 1, 0, NULL),
-(461, 8, 16, 0, 0, 0, 1, 0, NULL),
-(462, 9, 15, 0, 0, 0, 1, 0, NULL),
-(463, 10, 14, 0, 0, 0, 1, 0, NULL),
-(464, 12, 13, 0, 0, 0, 1, 0, NULL),
-(465, 17, 16, 0, 0, 0, 1, 0, NULL),
-(466, 7, 15, 0, 0, 0, 1, 0, NULL),
-(467, 8, 14, 0, 0, 0, 1, 0, NULL),
-(468, 9, 13, 0, 0, 0, 1, 0, NULL),
-(469, 10, 12, 0, 0, 0, 1, 0, NULL),
-(470, 16, 15, 0, 0, 0, 1, 0, NULL),
-(471, 17, 14, 0, 0, 0, 1, 0, NULL),
-(472, 7, 13, 0, 0, 0, 1, 0, NULL),
-(473, 8, 12, 0, 0, 0, 1, 0, NULL),
-(474, 9, 10, 0, 0, 0, 1, 0, NULL),
-(475, 15, 14, 0, 0, 0, 1, 0, NULL),
-(476, 16, 13, 0, 0, 0, 1, 0, NULL),
-(477, 17, 12, 0, 0, 0, 1, 0, NULL),
-(478, 7, 10, 0, 0, 0, 1, 0, NULL),
-(479, 8, 9, 0, 0, 0, 1, 0, NULL),
-(480, 14, 13, 0, 0, 0, 1, 0, NULL),
-(481, 15, 12, 0, 0, 0, 1, 0, NULL),
-(482, 16, 10, 0, 0, 0, 1, 0, NULL),
-(483, 17, 9, 0, 0, 0, 1, 0, NULL),
-(484, 7, 8, 0, 0, 0, 1, 0, NULL),
-(485, 13, 12, 0, 0, 0, 1, 0, NULL),
-(486, 14, 10, 0, 0, 0, 1, 0, NULL),
-(487, 15, 9, 0, 0, 0, 1, 0, NULL),
-(488, 16, 8, 0, 0, 0, 1, 0, NULL),
-(489, 17, 7, 0, 0, 0, 1, 0, NULL),
-(490, 12, 10, 0, 0, 0, 1, 0, NULL),
-(491, 13, 9, 0, 0, 0, 1, 0, NULL),
-(492, 14, 8, 0, 0, 0, 1, 0, NULL),
-(493, 15, 7, 0, 0, 0, 1, 0, NULL),
-(494, 16, 17, 0, 0, 0, 1, 0, NULL),
-(495, 10, 9, 0, 0, 0, 1, 0, NULL),
-(496, 12, 8, 0, 0, 0, 1, 0, NULL),
-(497, 13, 7, 0, 0, 0, 1, 0, NULL),
-(498, 14, 17, 0, 0, 0, 1, 0, NULL),
-(499, 15, 16, 0, 0, 0, 1, 0, NULL),
-(500, 9, 8, 0, 0, 0, 1, 0, NULL),
-(501, 10, 7, 0, 0, 0, 1, 0, NULL),
-(502, 12, 17, 0, 0, 0, 1, 0, NULL),
-(503, 13, 16, 0, 0, 0, 1, 0, NULL),
-(504, 14, 15, 0, 0, 0, 1, 0, NULL),
-(505, 7, 8, 0, 0, 0, 1, 0, NULL),
-(506, 17, 9, 0, 0, 0, 1, 0, NULL),
-(507, 16, 10, 0, 0, 0, 1, 0, NULL),
-(508, 15, 12, 0, 0, 0, 1, 0, NULL),
-(509, 14, 13, 0, 0, 0, 1, 0, NULL),
-(510, 8, 9, 0, 0, 0, 1, 0, NULL),
-(511, 7, 10, 0, 0, 0, 1, 0, NULL),
-(512, 17, 12, 0, 0, 0, 1, 0, NULL),
-(513, 16, 13, 0, 0, 0, 1, 0, NULL),
-(514, 15, 14, 0, 0, 0, 1, 0, NULL),
-(515, 9, 10, 0, 0, 0, 1, 0, NULL),
-(516, 8, 12, 0, 0, 0, 1, 0, NULL),
-(517, 7, 13, 0, 0, 0, 1, 0, NULL),
-(518, 17, 14, 0, 0, 0, 1, 0, NULL),
-(519, 16, 15, 0, 0, 0, 1, 0, NULL),
-(520, 10, 12, 0, 0, 0, 1, 0, NULL),
-(521, 9, 13, 0, 0, 0, 1, 0, NULL),
-(522, 8, 14, 0, 0, 0, 1, 0, NULL),
-(523, 7, 15, 0, 0, 0, 1, 0, NULL),
-(524, 17, 16, 0, 0, 0, 1, 0, NULL),
-(525, 12, 13, 0, 0, 0, 1, 0, NULL),
-(526, 10, 14, 0, 0, 0, 1, 0, NULL),
-(527, 9, 15, 0, 0, 0, 1, 0, NULL),
-(528, 8, 16, 0, 0, 0, 1, 0, NULL),
-(529, 7, 17, 0, 0, 0, 1, 0, NULL),
-(530, 13, 14, 0, 0, 0, 1, 0, NULL),
-(531, 12, 15, 0, 0, 0, 1, 0, NULL),
-(532, 10, 16, 0, 0, 0, 1, 0, NULL),
-(533, 9, 17, 0, 0, 0, 1, 0, NULL),
-(534, 8, 7, 0, 0, 0, 1, 0, NULL),
-(535, 14, 15, 0, 0, 0, 1, 0, NULL),
-(536, 13, 16, 0, 0, 0, 1, 0, NULL),
-(537, 12, 17, 0, 0, 0, 1, 0, NULL),
-(538, 10, 7, 0, 0, 0, 1, 0, NULL),
-(539, 9, 8, 0, 0, 0, 1, 0, NULL),
-(540, 15, 16, 0, 0, 0, 1, 0, NULL),
-(541, 14, 17, 0, 0, 0, 1, 0, NULL),
-(542, 13, 7, 0, 0, 0, 1, 0, NULL),
-(543, 12, 8, 0, 0, 0, 1, 0, NULL),
-(544, 10, 9, 0, 0, 0, 1, 0, NULL),
-(545, 16, 17, 0, 0, 0, 1, 0, NULL),
-(546, 15, 7, 0, 0, 0, 1, 0, NULL),
-(547, 14, 8, 0, 0, 0, 1, 0, NULL),
-(548, 13, 9, 0, 0, 0, 1, 0, NULL),
-(549, 12, 10, 0, 0, 0, 1, 0, NULL),
-(550, 7, 17, 0, 0, 0, 1, 0, NULL),
-(551, 8, 16, 0, 0, 0, 1, 0, NULL),
-(552, 9, 15, 0, 0, 0, 1, 0, NULL),
-(553, 10, 14, 0, 0, 0, 1, 0, NULL),
-(554, 12, 13, 0, 0, 0, 1, 0, NULL),
-(555, 17, 16, 0, 0, 0, 1, 0, NULL),
-(556, 7, 15, 0, 0, 0, 1, 0, NULL),
-(557, 8, 14, 0, 0, 0, 1, 0, NULL),
-(558, 9, 13, 0, 0, 0, 1, 0, NULL),
-(559, 10, 12, 0, 0, 0, 1, 0, NULL),
-(560, 16, 15, 0, 0, 0, 1, 0, NULL),
-(561, 17, 14, 0, 0, 0, 1, 0, NULL),
-(562, 7, 13, 0, 0, 0, 1, 0, NULL),
-(563, 8, 12, 0, 0, 0, 1, 0, NULL),
-(564, 9, 10, 0, 0, 0, 1, 0, NULL),
-(565, 15, 14, 0, 0, 0, 1, 0, NULL),
-(566, 16, 13, 0, 0, 0, 1, 0, NULL),
-(567, 17, 12, 0, 0, 0, 1, 0, NULL),
-(568, 7, 10, 0, 0, 0, 1, 0, NULL),
-(569, 8, 9, 0, 0, 0, 1, 0, NULL),
-(570, 14, 13, 0, 0, 0, 1, 0, NULL),
-(571, 15, 12, 0, 0, 0, 1, 0, NULL),
-(572, 16, 10, 0, 0, 0, 1, 0, NULL),
-(573, 17, 9, 0, 0, 0, 1, 0, NULL),
-(574, 7, 8, 0, 0, 0, 1, 0, NULL),
-(575, 13, 12, 0, 0, 0, 1, 0, NULL),
-(576, 14, 10, 0, 0, 0, 1, 0, NULL),
-(577, 15, 9, 0, 0, 0, 1, 0, NULL),
-(578, 16, 8, 0, 0, 0, 1, 0, NULL),
-(579, 17, 7, 0, 0, 0, 1, 0, NULL),
-(580, 12, 10, 0, 0, 0, 1, 0, NULL),
-(581, 13, 9, 0, 0, 0, 1, 0, NULL),
-(582, 14, 8, 0, 0, 0, 1, 0, NULL),
-(583, 15, 7, 0, 0, 0, 1, 0, NULL),
-(584, 16, 17, 0, 0, 0, 1, 0, NULL),
-(585, 10, 9, 0, 0, 0, 1, 0, NULL),
-(586, 12, 8, 0, 0, 0, 1, 0, NULL),
-(587, 13, 7, 0, 0, 0, 1, 0, NULL),
-(588, 14, 17, 0, 0, 0, 1, 0, NULL),
-(589, 15, 16, 0, 0, 0, 1, 0, NULL),
-(590, 9, 8, 0, 0, 0, 1, 0, NULL),
-(591, 10, 7, 0, 0, 0, 1, 0, NULL),
-(592, 12, 17, 0, 0, 0, 1, 0, NULL),
-(593, 13, 16, 0, 0, 0, 1, 0, NULL),
-(594, 14, 15, 0, 0, 0, 1, 0, NULL),
-(595, 7, 8, 0, 0, 0, 1, 0, NULL),
-(596, 17, 9, 0, 0, 0, 1, 0, NULL),
-(597, 16, 10, 0, 0, 0, 1, 0, NULL),
-(598, 15, 12, 0, 0, 0, 1, 0, NULL),
-(599, 14, 13, 0, 0, 0, 1, 0, NULL),
-(600, 8, 9, 0, 0, 0, 1, 0, NULL),
-(601, 7, 10, 0, 0, 0, 1, 0, NULL),
-(602, 17, 12, 0, 0, 0, 1, 0, NULL),
-(603, 16, 13, 0, 0, 0, 1, 0, NULL),
-(604, 15, 14, 0, 0, 0, 1, 0, NULL),
-(605, 9, 10, 0, 0, 0, 1, 0, NULL),
-(606, 8, 12, 0, 0, 0, 1, 0, NULL),
-(607, 7, 13, 0, 0, 0, 1, 0, NULL),
-(608, 17, 14, 0, 0, 0, 1, 0, NULL),
-(609, 16, 15, 0, 0, 0, 1, 0, NULL),
-(610, 10, 12, 0, 0, 0, 1, 0, NULL),
-(611, 9, 13, 0, 0, 0, 1, 0, NULL),
-(612, 8, 14, 0, 0, 0, 1, 0, NULL),
-(613, 7, 15, 0, 0, 0, 1, 0, NULL),
-(614, 17, 16, 0, 0, 0, 1, 0, NULL),
-(615, 12, 13, 0, 0, 0, 1, 0, NULL),
-(616, 10, 14, 0, 0, 0, 1, 0, NULL),
-(617, 9, 15, 0, 0, 0, 1, 0, NULL),
-(618, 8, 16, 0, 0, 0, 1, 0, NULL),
-(619, 7, 17, 0, 0, 0, 1, 0, NULL),
-(620, 13, 14, 0, 0, 0, 1, 0, NULL),
-(621, 12, 15, 0, 0, 0, 1, 0, NULL),
-(622, 10, 16, 0, 0, 0, 1, 0, NULL),
-(623, 9, 17, 0, 0, 0, 1, 0, NULL),
-(624, 8, 7, 0, 0, 0, 1, 0, NULL),
-(625, 14, 15, 0, 0, 0, 1, 0, NULL),
-(626, 13, 16, 0, 0, 0, 1, 0, NULL),
-(627, 12, 17, 0, 0, 0, 1, 0, NULL),
-(628, 10, 7, 0, 0, 0, 1, 0, NULL),
-(629, 9, 8, 0, 0, 0, 1, 0, NULL),
-(630, 15, 16, 0, 0, 0, 1, 0, NULL),
-(631, 14, 17, 0, 0, 0, 1, 0, NULL),
-(632, 13, 7, 0, 0, 0, 1, 0, NULL),
-(633, 12, 8, 0, 0, 0, 1, 0, NULL),
-(634, 10, 9, 0, 0, 0, 1, 0, NULL),
-(635, 16, 17, 0, 0, 0, 1, 0, NULL),
-(636, 15, 7, 0, 0, 0, 1, 0, NULL),
-(637, 14, 8, 0, 0, 0, 1, 0, NULL),
-(638, 13, 9, 0, 0, 0, 1, 0, NULL),
-(639, 12, 10, 0, 0, 0, 1, 0, NULL),
-(640, 7, 17, 1, 0, 0, 1, 0, NULL),
-(641, 8, 16, 1, 0, 0, 1, 0, NULL),
-(642, 9, 15, 1, 0, 0, 1, 0, NULL),
-(643, 10, 14, 1, 0, 0, 1, 0, NULL),
-(644, 12, 13, 1, 0, 0, 1, 0, NULL),
-(645, 17, 16, 2, 0, 0, 1, 0, NULL),
-(646, 7, 15, 2, 0, 0, 1, 0, NULL),
-(647, 8, 14, 2, 0, 0, 1, 0, NULL),
-(648, 9, 13, 2, 0, 0, 1, 0, NULL),
-(649, 10, 12, 2, 0, 0, 1, 0, NULL),
-(650, 16, 15, 3, 0, 0, 1, 0, NULL),
-(651, 17, 14, 3, 0, 0, 1, 0, NULL),
-(652, 7, 13, 3, 0, 0, 1, 0, NULL),
-(653, 8, 12, 3, 0, 0, 1, 0, NULL),
-(654, 9, 10, 3, 0, 0, 1, 0, NULL),
-(655, 15, 14, 4, 0, 0, 1, 0, NULL),
-(656, 16, 13, 4, 0, 0, 1, 0, NULL),
-(657, 17, 12, 4, 0, 0, 1, 0, NULL),
-(658, 7, 10, 4, 0, 0, 1, 0, NULL),
-(659, 8, 9, 4, 0, 0, 1, 0, NULL),
-(660, 14, 13, 5, 0, 0, 1, 0, NULL),
-(661, 15, 12, 5, 0, 0, 1, 0, NULL),
-(662, 16, 10, 5, 0, 0, 1, 0, NULL),
-(663, 17, 9, 5, 0, 0, 1, 0, NULL),
-(664, 7, 8, 5, 0, 0, 1, 0, NULL),
-(665, 13, 12, 6, 0, 0, 1, 0, NULL),
-(666, 14, 10, 6, 0, 0, 1, 0, NULL),
-(667, 15, 9, 6, 0, 0, 1, 0, NULL),
-(668, 16, 8, 6, 0, 0, 1, 0, NULL),
-(669, 17, 7, 6, 0, 0, 1, 0, NULL),
-(670, 12, 10, 7, 0, 0, 1, 0, NULL),
-(671, 13, 9, 7, 0, 0, 1, 0, NULL),
-(672, 14, 8, 7, 0, 0, 1, 0, NULL),
-(673, 15, 7, 7, 0, 0, 1, 0, NULL),
-(674, 16, 17, 7, 0, 0, 1, 0, NULL),
-(675, 10, 9, 8, 0, 0, 1, 0, NULL),
-(676, 12, 8, 8, 0, 0, 1, 0, NULL),
-(677, 13, 7, 8, 0, 0, 1, 0, NULL),
-(678, 14, 17, 8, 0, 0, 1, 0, NULL),
-(679, 15, 16, 8, 0, 0, 1, 0, NULL),
-(680, 9, 8, 9, 0, 0, 1, 0, NULL),
-(681, 10, 7, 9, 0, 0, 1, 0, NULL),
-(682, 12, 17, 9, 0, 0, 1, 0, NULL),
-(683, 13, 16, 9, 0, 0, 1, 0, NULL),
-(684, 14, 15, 9, 0, 0, 1, 0, NULL),
-(685, 7, 8, 10, 0, 0, 1, 0, NULL),
-(686, 17, 9, 10, 0, 0, 1, 0, NULL),
-(687, 16, 10, 10, 0, 0, 1, 0, NULL),
-(688, 15, 12, 10, 0, 0, 1, 0, NULL),
-(689, 14, 13, 10, 0, 0, 1, 0, NULL),
-(690, 8, 9, 11, 0, 0, 1, 0, NULL),
-(691, 7, 10, 11, 0, 0, 1, 0, NULL),
-(692, 17, 12, 11, 0, 0, 1, 0, NULL),
-(693, 16, 13, 11, 0, 0, 1, 0, NULL),
-(694, 15, 14, 11, 0, 0, 1, 0, NULL),
-(695, 9, 10, 12, 0, 0, 1, 0, NULL),
-(696, 8, 12, 12, 0, 0, 1, 0, NULL),
-(697, 7, 13, 12, 0, 0, 1, 0, NULL),
-(698, 17, 14, 12, 0, 0, 1, 0, NULL),
-(699, 16, 15, 12, 0, 0, 1, 0, NULL),
-(700, 10, 12, 13, 0, 0, 1, 0, NULL),
-(701, 9, 13, 13, 0, 0, 1, 0, NULL),
-(702, 8, 14, 13, 0, 0, 1, 0, NULL),
-(703, 7, 15, 13, 0, 0, 1, 0, NULL),
-(704, 17, 16, 13, 0, 0, 1, 0, NULL),
-(705, 12, 13, 14, 0, 0, 1, 0, NULL),
-(706, 10, 14, 14, 0, 0, 1, 0, NULL),
-(707, 9, 15, 14, 0, 0, 1, 0, NULL),
-(708, 8, 16, 14, 0, 0, 1, 0, NULL),
-(709, 7, 17, 14, 0, 0, 1, 0, NULL),
-(710, 13, 14, 15, 0, 0, 1, 0, NULL),
-(711, 12, 15, 15, 0, 0, 1, 0, NULL),
-(712, 10, 16, 15, 0, 0, 1, 0, NULL),
-(713, 9, 17, 15, 0, 0, 1, 0, NULL),
-(714, 8, 7, 15, 0, 0, 1, 0, NULL),
-(715, 14, 15, 16, 0, 0, 1, 0, NULL),
-(716, 13, 16, 16, 0, 0, 1, 0, NULL),
-(717, 12, 17, 16, 0, 0, 1, 0, NULL),
-(718, 10, 7, 16, 0, 0, 1, 0, NULL),
-(719, 9, 8, 16, 0, 0, 1, 0, NULL),
-(720, 15, 16, 17, 0, 0, 1, 0, NULL),
-(721, 14, 17, 17, 0, 0, 1, 0, NULL),
-(722, 13, 7, 17, 0, 0, 1, 0, NULL),
-(723, 12, 8, 17, 0, 0, 1, 0, NULL),
-(724, 10, 9, 17, 0, 0, 1, 0, NULL),
-(725, 16, 17, 18, 0, 0, 1, 0, NULL),
-(726, 15, 7, 18, 0, 0, 1, 0, NULL),
-(727, 14, 8, 18, 0, 0, 1, 0, NULL),
-(728, 13, 9, 18, 0, 0, 1, 0, NULL),
-(729, 12, 10, 18, 0, 0, 1, 0, NULL);
+INSERT INTO `game` (`idGame`, `idTeamHome`, `idTeamAway`, `round`, `goalHome`, `goalAway`, `idLeague`, `cardHome`, `cardAway`, `dateGame`) VALUES
+(5, 7, 8, 0, 0, 0, 1, 0, '0', '2024-02-14 23:52:25'),
+(6, 13, 12, 0, 0, 0, 1, 0, '0', '2024-02-16 23:52:25');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `league`
+--
+
+CREATE TABLE `league` (
+  `idLeague` int(11) NOT NULL,
+  `nameLeague` varchar(80) NOT NULL,
+  `gender` enum('M','F') NOT NULL,
+  `active` enum('true','false','','') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `league`
+--
+
+INSERT INTO `league` (`idLeague`, `nameLeague`, `gender`, `active`) VALUES
+(1, 'A', 'M', 'false');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `player`
+--
+
+CREATE TABLE `player` (
+  `idPlayer` int(11) NOT NULL,
+  `playerName` varchar(60) NOT NULL,
+  `idTeam` int(11) NOT NULL,
+  `photo` text NOT NULL,
+  `age` int(11) NOT NULL,
+  `idPosition` int(11) NOT NULL,
+  `status` enum('holder','reserve') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `player`
+--
+
+INSERT INTO `player` (`idPlayer`, `playerName`, `idTeam`, `photo`, `age`, `idPosition`, `status`) VALUES
+(1, 'Carlos', 7, '...', 24, 1, 'holder'),
+(2, 'Iago', 8, '...', 18, 2, 'holder'),
+(3, 'Lucas', 7, '...', 18, 3, 'holder'),
+(4, 'Vitor', 8, '...', 17, 4, 'holder'),
+(6, 'Gustavo', 7, '...', 31, 1, 'holder'),
+(7, 'João', 9, '...', 21, 2, 'holder'),
+(8, 'Diego', 10, '...', 21, 2, 'holder'),
+(9, 'Ago', 14, '...', 21, 2, 'holder'),
+(10, 'teste', 7, 'SEM FOT', 19, 3, 'holder'),
+(11, 't', 7, 'SEM FOTO', 18, 1, ''),
+(12, 'teste1', 7, 'SEM FOTO', 19, 1, ''),
+(13, 'teste5', 7, 'SEM FOTO', 18, 1, ''),
+(14, 'Iago3', 7, 'SEM FOTO', 19, 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `position`
+--
+
+CREATE TABLE `position` (
+  `idPosition` int(11) NOT NULL,
+  `description` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `position`
+--
+
+INSERT INTO `position` (`idPosition`, `description`) VALUES
+(1, 'Pivot'),
+(2, 'Fixed'),
+(3, 'Right wing'),
+(4, 'Left wing'),
+(5, 'Goalkeeper');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `ranking`
+--
+
+CREATE TABLE `ranking` (
+  `idRanking` int(11) NOT NULL,
+  `idTeam` int(11) NOT NULL,
+  `points` int(11) NOT NULL,
+  `victory` int(11) NOT NULL,
+  `draw` int(11) NOT NULL,
+  `loss` int(11) NOT NULL,
+  `goalsPro` int(11) NOT NULL,
+  `goalsTaken` int(11) NOT NULL,
+  `goalSum` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `team`
+--
+
+CREATE TABLE `team` (
+  `idTeam` int(11) NOT NULL,
+  `teamName` varchar(120) NOT NULL,
+  `teamTag` char(3) NOT NULL,
+  `idLeague` int(11) NOT NULL DEFAULT 1,
+  `gender` enum('M','F') NOT NULL,
+  `active` enum('true','false') NOT NULL DEFAULT 'true',
+  `photo` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `team`
+--
+
+INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idLeague`, `gender`, `active`, `photo`) VALUES
+(7, 'Internacional', 'INT', 1, 'M', 'true', ''),
+(8, 'Gremio', 'GRE', 1, 'M', 'true', ''),
+(9, 'Real Madrid', 'RMC', 1, 'M', 'true', ''),
+(10, 'Barcelona', 'BAR', 1, 'M', 'true', ''),
+(12, 'Figueirense', 'FIG', 1, 'M', 'true', ''),
+(13, 'Flamengo', 'FLA', 1, 'M', 'true', ''),
+(14, 'Caxias', 'CAX', 1, 'M', 'true', ''),
+(15, 'Madureira', 'MAD', 1, 'M', 'true', ''),
+(16, 'Palmeiras', 'PAL', 1, 'M', 'true', ''),
+(17, 'Bragantino', 'BRA', 1, 'M', 'true', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `user`
+--
+
+CREATE TABLE `user` (
+  `idUser` int(11) NOT NULL,
+  `userName` varchar(60) NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `cpf` int(11) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `idType` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `user`
+--
+
+INSERT INTO `user` (`idUser`, `userName`, `email`, `password`, `cpf`, `phone`, `idType`) VALUES
+(1, 'Admin', 'admin@gmail.com', '123456', 11122233, '51911111111', 1),
+(3, 'Tec', 'tec@gmail.com', '12345', 11122233, '51911111111', 2),
+(4, 'User', 'user@gmail.com', '123456', 11122233, '51911111111', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `usertype`
+--
+
+CREATE TABLE `usertype` (
+  `id` int(11) NOT NULL,
+  `description` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `usertype`
+--
+
+INSERT INTO `usertype` (`id`, `description`) VALUES
+(1, 'admin'),
+(2, 'technician'),
+(3, 'user');
 
 --
 -- Índices para tabelas despejadas
@@ -424,6 +234,53 @@ ALTER TABLE `game`
   ADD KEY `idTeamAway_fk` (`idTeamAway`);
 
 --
+-- Índices de tabela `league`
+--
+ALTER TABLE `league`
+  ADD PRIMARY KEY (`idLeague`);
+
+--
+-- Índices de tabela `player`
+--
+ALTER TABLE `player`
+  ADD PRIMARY KEY (`idPlayer`),
+  ADD KEY `idTeam` (`idTeam`),
+  ADD KEY `idPosition` (`idPosition`);
+
+--
+-- Índices de tabela `position`
+--
+ALTER TABLE `position`
+  ADD PRIMARY KEY (`idPosition`);
+
+--
+-- Índices de tabela `ranking`
+--
+ALTER TABLE `ranking`
+  ADD PRIMARY KEY (`idRanking`),
+  ADD KEY `idTeam_fk` (`idTeam`);
+
+--
+-- Índices de tabela `team`
+--
+ALTER TABLE `team`
+  ADD PRIMARY KEY (`idTeam`),
+  ADD KEY `idLeague` (`idLeague`);
+
+--
+-- Índices de tabela `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`idUser`),
+  ADD KEY `idType` (`idType`);
+
+--
+-- Índices de tabela `usertype`
+--
+ALTER TABLE `usertype`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -432,6 +289,48 @@ ALTER TABLE `game`
 --
 ALTER TABLE `game`
   MODIFY `idGame` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=730;
+
+--
+-- AUTO_INCREMENT de tabela `league`
+--
+ALTER TABLE `league`
+  MODIFY `idLeague` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `player`
+--
+ALTER TABLE `player`
+  MODIFY `idPlayer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de tabela `position`
+--
+ALTER TABLE `position`
+  MODIFY `idPosition` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `ranking`
+--
+ALTER TABLE `ranking`
+  MODIFY `idRanking` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `team`
+--
+ALTER TABLE `team`
+  MODIFY `idTeam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de tabela `user`
+--
+ALTER TABLE `user`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `usertype`
+--
+ALTER TABLE `usertype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restrições para tabelas despejadas
@@ -444,6 +343,31 @@ ALTER TABLE `game`
   ADD CONSTRAINT `idLeague_fk` FOREIGN KEY (`idLeague`) REFERENCES `league` (`idLeague`),
   ADD CONSTRAINT `idTeamAway_fk` FOREIGN KEY (`idTeamAway`) REFERENCES `team` (`idTeam`),
   ADD CONSTRAINT `idTeamHome_fk` FOREIGN KEY (`idTeamHome`) REFERENCES `team` (`idTeam`);
+
+--
+-- Restrições para tabelas `player`
+--
+ALTER TABLE `player`
+  ADD CONSTRAINT `player_ibfk_1` FOREIGN KEY (`idTeam`) REFERENCES `team` (`idTeam`),
+  ADD CONSTRAINT `player_ibfk_2` FOREIGN KEY (`idPosition`) REFERENCES `position` (`idPosition`);
+
+--
+-- Restrições para tabelas `ranking`
+--
+ALTER TABLE `ranking`
+  ADD CONSTRAINT `idTeam_fk` FOREIGN KEY (`idTeam`) REFERENCES `team` (`idTeam`);
+
+--
+-- Restrições para tabelas `team`
+--
+ALTER TABLE `team`
+  ADD CONSTRAINT `team_ibfk_2` FOREIGN KEY (`idLeague`) REFERENCES `league` (`idLeague`);
+
+--
+-- Restrições para tabelas `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`idType`) REFERENCES `usertype` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
