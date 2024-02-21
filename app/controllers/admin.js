@@ -103,9 +103,9 @@ export async function insertPlayerController(req, res){
     const idTeam = req.body.idTeam
     const age = req.body.age
     const idPosition = req. body.idPosition
-    const idStatus = req.body.idStatus 
+    const status = req.body.status 
 
-    const registerPlayer = await insertPlayerModel(playerName, idTeam, age, idPosition, idStatus)
+    const registerPlayer = await insertPlayerModel(playerName, idTeam, age, idPosition, status)
 
     if(!registerPlayer){
         let erro = "Erro ao cadastrar jogador"

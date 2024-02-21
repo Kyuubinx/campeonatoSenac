@@ -7,9 +7,9 @@ export const adminRouter = Router()
 adminRouter.get("/teams", teamsController)
 adminRouter.get("/players", playersController)
 
-adminRouter.post("/insertGame", insertGameController)
-adminRouter.post("/insertTeam", insertTeamController)
-adminRouter.post("/insertPlayer", insertPlayerController)
+adminRouter.post("/insertGame", tokenValidator, insertGameController)
+adminRouter.post("/insertTeam", tokenValidator, insertTeamController)
+adminRouter.post("/insertPlayer", tokenValidator, insertPlayerController)
 adminRouter.post("/login", loginController)
 
 adminRouter.get("/searchTeamByName/:idTeam", searchTeamController)
@@ -23,7 +23,7 @@ adminRouter.get("/listGames", listGamesController)
 adminRouter.get("/listGamesInTeam/:idTeam", listGamesInTeamController)
 adminRouter.get("/listFutureGames", listFutureGamesController)
 
-adminRouter.patch("/updateActiveTeam", updateActiveTeamController)
-adminRouter.patch("/updatePlayer", updatePlayerController)
+adminRouter.patch("/updateActiveTeam", tokenValidator, updateActiveTeamController)
+adminRouter.patch("/updatePlayer", tokenValidator, updatePlayerController)
 
 adminRouter.get("/listLeague", listLeagueController)
