@@ -60,16 +60,12 @@ export async function insertTeamModel(teamName, teamTag) {
     console.log(errors)
   }
 }
-export async function insertGameModel(teamHome, teamAway, round, league) {
+export async function insertGameModel(teamHome, teamAway, round, idLeague) {
 
   try {
-    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, cardHome, cardAway, dateGame, active) VALUES (null,${teamHome},${teamAwai},${round},0,0,${league},0,0,null, )`)
+    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, cardHome, cardAway, dateGame, active) VALUES (null,${teamHome},${teamAway},${round},0,0,${league},0,0,null, )`)
 
-<<<<<<< HEAD
-    const updateActive = updateStatusLeague(league)
-=======
     const updateActive = updateLeagueActiveModel(idLeague)
->>>>>>> 9b86386bffa9d0b5ac404ba960a45d867de52245
     if(updateActive.length < 0){
       return false
     }else{
@@ -159,12 +155,7 @@ export async function updatePlayerModel(idPlayer, playerName, status) {
 
 export async function updateLeagueActiveModel(idLeague) {
   try {
-<<<<<<< HEAD
-    const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE  idLeague = ${league}`)
-=======
-    console.log(league)
     const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE  idLeague = ${idLeague}`)
->>>>>>> 9b86386bffa9d0b5ac404ba960a45d867de52245
     return result
   } catch (errors) {
     console.log(errors)
