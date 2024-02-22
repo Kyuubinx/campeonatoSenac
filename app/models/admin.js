@@ -47,7 +47,7 @@ export async function listPlayersInTeamModel(idTeam) {
 }
 export async function insertTeamModel(teamName, teamTag) {
 
-  const findTeam = await searchTeamByNameModel(teamName)
+  const findTeam = await searchTeamByNameModel(idTeam)
 
   if (findTeam.length > 0) {
     return false
@@ -60,13 +60,13 @@ export async function insertTeamModel(teamName, teamTag) {
     console.log(errors)
   }
 }
-export async function insertGameModel(teamHome, teamAwai, round, league) {
+export async function insertGameModel(teamHome, teamAway, round, league) {
 
   try {
     const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, cardHome, cardAway, dateGame) VALUES (null,${teamHome},${teamAwai},${round},0,0,${league},0,0,null, null)`)
     console.log(results, fields)
 
-    const updateActive = updateLeagueActive(league)
+    const updateActive = updateLeagueActiveModel(idLeague)
     if(updateActive.length < 0){
       return false
     }else{
@@ -154,10 +154,10 @@ export async function updatePlayerModel(idPlayer, playerName, status) {
   }
 }
 
-export async function updateLeagueActiveModel(league) {
+export async function updateLeagueActiveModel(idLeague) {
   try {
     console.log(league)
-    const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE  idLeague = ${league}`)
+    const [result, fiels] = await connection.query(`UPDATE league set active = "true" WHERE  idLeague = ${idLeague}`)
     return result
   } catch (errors) {
     console.log(errors)
