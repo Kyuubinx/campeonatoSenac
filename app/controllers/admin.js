@@ -1,5 +1,5 @@
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePoint, updatePointModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePointModel} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -185,7 +185,6 @@ export async function listPositionController(req, res){
 
 export async function listLeagueController(req, res){
     const listPosition = await listLeagueModel()
-    
     return res.status(200).json(listPosition)
 }
 
@@ -208,6 +207,7 @@ export async function listGameController(req, res){
     return res.status(200).json(listGame)
 }
 export async function loginController(req, res){
+    console.log("cheguei")
     const userName = req.body.userName
     const password = req.body.password
 
