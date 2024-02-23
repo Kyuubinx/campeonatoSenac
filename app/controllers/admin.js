@@ -1,5 +1,5 @@
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePointModel, orderTeamByPoints} from "../models/admin.js"
+import {updateGoalModel, updateCardModel, listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel,  listPositionModel,listLeagueModel, insertGameModel, listGameModel, loginModel, updatePointModel, orderTeamByPoints} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -63,17 +63,7 @@ export async function updateActiveTeamController(req, res){
     }
     return res.status(200).json(updateTeam)
 }
-export async function listGamesInTeamController(req, res){
-    const idTeam = req.params.idTeam
 
-    const listGamesInTeam = await listGamesInTeamModel(idTeam)
-
-    if(!listGamesInTeam){
-        let erro = "Erro ao listar jogos do time"
-        return res.status(400).json(erro)
-    }
-    return res.status(200).json(listGamesInTeam)
-}
 export async function listPlayersTeamController(req, res){
 
     const idTeam = req.params.idTeam
@@ -177,12 +167,7 @@ export async function listLeagueController(req, res){
     const listPosition = await listLeagueModel()
     return res.status(200).json(listPosition)
 }
-export async function listFutureGamesController(req,res){
-    const formatDate = moment().format()
-    const listFutureGames = await listFutureGamesModel(formatDate)
 
-    return res.status(200).json(listFutureGames)
-}
 export async function listGameController(req, res){
     const idGame = req.params.idGame
 
