@@ -1,5 +1,5 @@
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePointModel} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePointModel, orderTeamByPoints} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -25,14 +25,13 @@ export async function insertTeamController(req, res){
     }
     return res.status(201).json(registerTeam)
 }
-
 export async function insertGameController(req, res){    
     
-    const teamHome = req.body.teamHome
-    const teamAway = req.body.teamAway
+    const idTeamHome = req.body.idTeamHome
+    const idTeamAway = req.body.idTeamAway
     const round = req.body.round
-    const league = req.body.league
-    const registerGame = await insertGameModel(teamHome, teamAway, round, league)
+    const idLeague = req.body.idLeague
+    const registerGame = await insertGameModel(idTeamHome, idTeamAway, round, idLeague)
     if(!registerGame){
         let erro = "Erro ao cadastrar time"
         return res.status(400).json(erro)
@@ -75,15 +74,6 @@ export async function listGamesInTeamController(req, res){
     }
     return res.status(200).json(listGamesInTeam)
 }
-
-export async function playersController(req, res){
-    const players = await listPlayersModel()
-    if(!players){
-        let erro = "Erro ao encontrar jogadores"
-        return res.status(400).json(erro)
-    }
-    return res.status(200).json(players)
-} 
 export async function listPlayersTeamController(req, res){
 
     const idTeam = req.params.idTeam
@@ -99,12 +89,13 @@ export async function listPlayersTeamController(req, res){
 export async function insertPlayerController(req, res){
 
     const playerName = req.body.playerName
+    const idPlayer = req.body.idPlayer
     const idTeam = req.body.idTeam
     const age = req.body.age
     const idPosition = req. body.idPosition
     const status = req.body.status 
 
-    const registerPlayer = await insertPlayerModel(playerName, idTeam, age, idPosition, status)
+    const registerPlayer = await insertPlayerModel(playerName, idTeam, age, idPosition, status, idPlayer)
 
     if(!registerPlayer){
         let erro = "Erro ao cadastrar jogador"
@@ -137,7 +128,7 @@ export async function searchPlayerTeamController(req,res){
 }
 export async function updatePlayerController(req, res){
     const idPlayer = req.body.idPlayer
-    const age = req.body.age
+    const playerName = req.body.playerName
     const status = req.body.status
 
     const updatePlayer = await updatePlayerModel(idPlayer, playerName, status)
@@ -182,20 +173,17 @@ export async function listPositionController(req, res){
     
     return res.status(200).json(listPosition)
 }
-
 export async function listLeagueController(req, res){
     const listPosition = await listLeagueModel()
     
     return res.status(200).json(listPosition)
 }
-
 export async function listFutureGamesController(req,res){
     const formatDate = moment().format()
     const listFutureGames = await listFutureGamesModel(formatDate)
 
     return res.status(200).json(listFutureGames)
 }
-
 export async function listGameController(req, res){
     const idGame = req.params.idGame
 
@@ -213,4 +201,40 @@ export async function loginController(req, res){
 
     const user = await loginModel(userName,password)
     return res.status(200).json(user)
+}
+export async function rankingController(req, res){
+    const teams = await orderTeamByPoints()
+    if(!teams){
+        let erro = "Erro ao encontrar times" 
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(teams)
+}
+export async function updateCardController(req, res){
+
+    const idGame = req.body.idGame
+    const cardHome = req.body.cardHome
+    const cardAway = req.body.cardAway
+   
+    const updateCard = await updateCardModel(cardAway,cardHome, idGame)
+
+    if(!updateCard){
+        let erro = "Erro ao fazer update" 
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(updateCard)
+}
+export async function updateGoalsController(req, res){
+
+    const idGame = req.body.idGame
+    const goalHome = req.body.goalHome
+    const goalAway = req.body.goalAway
+   
+    const updateGoal = await updateGoalModel(goalAway,goalHome, idGame)
+
+    if(!updateGoal){
+        let erro = "Erro ao fazer update" 
+        return res.status(400).json(erro)
+    }
+    return res.status(200).json(updateGoal)
 }
