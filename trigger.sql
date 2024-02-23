@@ -1,9 +1,10 @@
 CREATE TRIGGER `trg_points_champion` BEFORE UPDATE ON `game`
  FOR EACH ROW BEGIN
-    IF EXISTS (SELECT * FROM game WHERE active = 'false' AND idGame = NEW.idGame) THEN
+    IF EXISTS (SELECT * FROM game WHERE active = 'true' AND idGame = NEW.idGame) THEN
         IF NEW.goalHome > NEW.goalAway THEN
             UPDATE ranking
             SET 
+            	victory = victory + 1,
                 points = points + 3,
                 goalsPro = goalsPro + NEW.goalHome, 
                 goalsTaken = goalsTaken + NEW.goalAway, 
@@ -12,7 +13,7 @@ CREATE TRIGGER `trg_points_champion` BEFORE UPDATE ON `game`
 
             UPDATE ranking
             SET 
-                draw = draw + 1,
+                loss = loss + 1,
                 goalsPro = goalsPro + NEW.goalAway, 
                 goalsTaken = goalsTaken + NEW.goalHome, 
                 goalSum = goalSum - (NEW.goalHome - NEW.goalAway)
@@ -21,6 +22,7 @@ CREATE TRIGGER `trg_points_champion` BEFORE UPDATE ON `game`
             IF NEW.goalHome = NEW.goalAway THEN
                 UPDATE ranking
                 SET 
+                	draw = draw + 1,
                     points = points + 1,
                     goalsPro = goalsPro + NEW.goalAway,
                     goalsTaken = goalsTaken + NEW.goalHome 
@@ -28,4 +30,5 @@ CREATE TRIGGER `trg_points_champion` BEFORE UPDATE ON `game`
             END IF;
         END IF;
     END IF;
+END
 END

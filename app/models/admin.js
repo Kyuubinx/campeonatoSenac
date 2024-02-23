@@ -130,7 +130,7 @@ export async function updateLeagueActiveModel(idLeague) {
 export async function updatePointModel(idGame, goalHome, goalAway, cardHome, cardAway) {
   try {
 
-    const [result, fiels] = await connection.query(`UPDATE game SET goalHome = ${goalHome} , goalAway = ${goalAway}, cardHome = ${cardHome}, cardAway = ${cardAway}  WHERE idGame= ${idGame}`)
+    const [result, fiels] = await connection.query(`UPDATE game SET goalHome = ${goalHome} , goalAway = ${goalAway}, cardHome = ${cardHome}, cardAway = ${cardAway}, active = "true"  WHERE idGame= ${idGame}`)
     return result
   } catch (errors) {
     console.log(errors)
@@ -208,7 +208,7 @@ export async function orderTeamByPoints() {
 }
 export async function updateCardModel(cardHome,cardAway, idGame){
   try {
-    const [result, fields] = await connection.query(`UPDATE game SET cardHome = ${cardHome}, cardAway = ${cardAway} WHERE idGame = ${idGame} `)
+    const [result, fields] = await connection.query(`UPDATE game SET cardHome = ${cardHome}, cardAway = ${cardAway}, active = "false" WHERE idGame = ${idGame} `)
     return result
   } catch (errors) {
     console.log(errors)
@@ -216,7 +216,7 @@ export async function updateCardModel(cardHome,cardAway, idGame){
 }
 export async function updateGoalModel(goalAway, goalHome, idGame){
   try {
-    const [result, fields] = await connection.query(`UPDATE game SET goalHome = ${goalHome}, goalAway = ${goalAway} WHERE idGame = ${idGame} `)
+    const [result, fields] = await connection.query(`UPDATE game SET goalHome = ${goalHome}, goalAway = ${goalAway}, active = "false" WHERE idGame = ${idGame} `)
     return result
   } catch (errors) {
     console.log(errors)
