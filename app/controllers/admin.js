@@ -1,10 +1,8 @@
-import moment from "moment"
 import {updateGoalModel, updateCardModel, listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel,  listPositionModel,listLeagueModel, insertGameModel, listGameModel, loginModel, updatePointModel, orderTeamByPoints} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
 }
-
 export async function teamsController(req, res){
     const teams = await listTeamsModel()
     if(!teams){
@@ -38,7 +36,6 @@ export async function insertGameController(req, res){
     }
     return res.status(201).json(registerGame)
 }
-
 export async function searchTeamController(req, res){
 
     const idTeam = req.params.idTeam
@@ -63,7 +60,6 @@ export async function updateActiveTeamController(req, res){
     }
     return res.status(200).json(updateTeam)
 }
-
 export async function listPlayersTeamController(req, res){
 
     const idTeam = req.params.idTeam
@@ -145,7 +141,6 @@ export async function updateGameController(req, res){
     }
     return res.status(200).json(updatePlayer)
 }
-
 export async function listGamesController(req, res){
     
     const round = req.params.round
@@ -167,7 +162,6 @@ export async function listLeagueController(req, res){
     const listPosition = await listLeagueModel()
     return res.status(200).json(listPosition)
 }
-
 export async function listGameController(req, res){
     const idGame = req.params.idGame
 
