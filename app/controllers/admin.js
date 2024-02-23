@@ -1,5 +1,5 @@
 import moment from "moment"
-import {listTeamsModel, insertTeamModel, searchTeamByNameModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePointModel, orderTeamByPoints} from "../models/admin.js"
+import {listTeamsModel, insertTeamModel, searchTeamByIdModel, listPlayersInTeamModel, insertPlayerModel, searchPlayerByNameModel, searchPlayerByTeamModel, updateTeamActiveModel, listGamesModel, updatePlayerModel, listGamesInTeamModel, listPositionModel, listFutureGamesModel, listLeagueModel, insertGameModel, listGameModel, loginModel, updatePointModel, orderTeamByPoints} from "../models/admin.js"
 
 export async function admin (req, res){
     return res.status(200).json("tela home do admin")
@@ -42,8 +42,8 @@ export async function insertGameController(req, res){
 export async function searchTeamController(req, res){
 
     const idTeam = req.params.idTeam
-
-    const searchTeam = await searchTeamByNameModel(idTeam)
+    console.log(req.params.idTeam)
+    const searchTeam = await searchTeamByIdModel(idTeam)
 
     if(!searchTeam){
         let erro = "Erro ao pesquisar time"

@@ -136,9 +136,9 @@ export async function updatePointModel(idGame, goalHome, goalAway, cardHome, car
     console.log(errors)
   }
 }
-export async function searchTeamByNameModel(teamName) {
+export async function searchTeamByIdModel(teamName) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM team WHERE teamName = '${teamName}'`)
+    const [results, fields] = await connection.query(`SELECT * FROM team WHERE idTeam = '${teamName}'`)
     return results;
   } catch (errors) {
     console.log(errors)
@@ -171,7 +171,11 @@ export async function listFutureGamesModel(dateGame) {
 
 export async function listGameModel(idGame) {
   try {
-    const [results, fields] = await connection.query(`SELECT * FROM game WHERE idGame = ${idGame}`)
+    const [results, fields] = await connection.query(`SELECT 
+    gameNow.*,
+    (SELECT teamNow.teamName from team as teamNow where teamNow.idTeam = gameNow.idTeamHome) as teamNameHome,
+    (SELECT teamNow.teamName from team as teamNow where teamNow.idTeam = gameNow.idTeamAway) as teamNameAway
+    FROM game as gameNow WHERE gameNow.idGame = ${idGame}`)
     return results
   } catch (errors) {
     console.log(errors)
