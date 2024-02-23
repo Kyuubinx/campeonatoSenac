@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Fev-2024 às 22:38
+-- Tempo de geração: 23-Fev-2024 às 23:04
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `vcli_championship`
+-- Banco de dados: `vcli_championship2`
 --
 
 -- --------------------------------------------------------
@@ -37,7 +37,6 @@ CREATE TABLE `game` (
   `idLeague` int(11) NOT NULL,
   `cardHome` int(2) NOT NULL DEFAULT 0,
   `cardAway` char(2) NOT NULL DEFAULT '0',
-  `dateGame` datetime DEFAULT NULL,
   `active` enum('true','false') NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -45,13 +44,12 @@ CREATE TABLE `game` (
 -- Extraindo dados da tabela `game`
 --
 
-INSERT INTO `game` (`idGame`, `idTeamHome`, `idTeamAway`, `round`, `goalHome`, `goalAway`, `idLeague`, `cardHome`, `cardAway`, `dateGame`, `active`) VALUES
-(5, 7, 8, 0, 5, 4, 1, 4, '5', '2024-02-14 23:52:25', 'false'),
-(6, 13, 12, 0, 5, 5, 1, 4, '4', '2024-02-16 23:52:25', 'true'),
-(730, 16, 17, 0, 0, 0, 1, 0, '0', NULL, 'true'),
-(731, 18, 8, 0, 0, 0, 1, 0, '0', NULL, 'false'),
-(732, 17, 8, 0, 0, 0, 1, 0, '0', NULL, 'false'),
-(733, 14, 8, 0, 0, 0, 1, 0, '0', NULL, 'false');
+INSERT INTO `game` (`idGame`, `idTeamHome`, `idTeamAway`, `round`, `goalHome`, `goalAway`, `idLeague`, `cardHome`, `cardAway`, `active`) VALUES
+(5, 7, 8, 0, 5, 4, 1, 4, '5', 'false'),
+(6, 13, 12, 0, 5, 5, 1, 4, '4', 'true'),
+(730, 16, 17, 0, 0, 0, 1, 0, '0', 'true'),
+(732, 17, 8, 0, 0, 0, 1, 0, '0', 'false'),
+(733, 14, 8, 0, 0, 0, 1, 0, '0', 'false');
 
 --
 -- Acionadores `game`
@@ -142,14 +140,8 @@ INSERT INTO `player` (`idPlayer`, `playerName`, `idTeam`, `age`, `idPosition`, `
 (9, 'Ago', 14, 21, 2, 'holder'),
 (10, 'teste', 7, 19, 3, 'holder'),
 (11, 't', 7, 18, 1, 'holder'),
-(12, 'teste1', 7, 19, 1, 'holder'),
-(13, 'teste5', 7, 18, 1, 'holder'),
 (14, 'Iago3', 7, 19, 1, 'holder'),
-(15, 'teste', 15, 20, 4, 'reserve'),
-(16, 'help', 18, 20, 4, 'reserve'),
-(17, 'iago', 18, 20, 4, 'reserve'),
-(18, 'iago', 18, 20, 4, 'reserve'),
-(19, 'ssssssssssssss', 18, 20, 4, 'reserve');
+(15, 'teste', 15, 20, 4, 'reserve');
 
 -- --------------------------------------------------------
 
@@ -227,11 +219,7 @@ INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idLeague`, `gender`) VALUE
 (14, 'Caxias', 'CAX', 1, 'M'),
 (15, 'Madureira', 'MAD', 1, 'M'),
 (16, 'Palmeiras', 'PAL', 1, 'M'),
-(17, 'Bragantino', 'BRA', 1, 'M'),
-(18, 'Teste', 'TST', 1, 'M'),
-(19, 'MULHER', 'DST', 1, 'M'),
-(20, 'MULHERes', 'DST', 1, 'M'),
-(21, 'MULHEResssssssssss', 'DST', 1, 'M');
+(17, 'Bragantino', 'BRA', 1, 'M');
 
 --
 -- Acionadores `team`
@@ -282,7 +270,6 @@ CREATE TABLE `usertype` (
 
 INSERT INTO `usertype` (`id`, `description`) VALUES
 (1, 'admin'),
-(2, 'technician'),
 (3, 'user');
 
 --
