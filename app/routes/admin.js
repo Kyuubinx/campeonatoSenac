@@ -21,8 +21,8 @@ adminRouter.get("/ranking", rankingController)
 
 adminRouter.patch("/updateActiveTeam",tokenValidator, updateActiveTeamController)
 
-adminRouter.patch("/updatePlayer",tokenValidator, updatePlayerController)
-adminRouter.patch("/updateGame",tokenValidator, updateGameController)
-adminRouter.patch("/updateCard", tokenValidator, updateCardController)
-adminRouter.patch("/updateGoals", tokenValidator, updateGoalsController)
+adminRouter.patch("/updatePlayer", updatePlayerController)
+adminRouter.patch("/updateGame", updateGameController)
+adminRouter.patch("/updateCard", updateCardController)
+adminRouter.patch("/updateGoals", updateGoalsController)
 adminRouter.get("/listLeague", listLeagueController)
