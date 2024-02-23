@@ -1,5 +1,6 @@
 CREATE TRIGGER `trg_points_champion` BEFORE UPDATE ON `game`
- FOR EACH ROW BEGIN
+ FOR EACH ROW 
+    BEGIN
     IF EXISTS (SELECT * FROM game WHERE active = 'true' AND idGame = NEW.idGame) THEN
         IF NEW.goalHome > NEW.goalAway THEN
             UPDATE ranking
@@ -31,4 +32,9 @@ CREATE TRIGGER `trg_points_champion` BEFORE UPDATE ON `game`
         END IF;
     END IF;
 END
+END
+
+CREATE TRIGGER `trg_insert_ranking` AFTER INSERT ON `team`
+ FOR EACH ROW BEGIN
+	INSERT INTO ranking(idTeam) VALUES(NEW.idTeam);
 END
