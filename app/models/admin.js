@@ -57,23 +57,6 @@ export async function listGamesInTeamModel(idTeam) {
     console.log(errors)
   }
 }
-export async function listFutureGamesModel(dateGame) {
-  try {
-    const [results, fields] = await connection.query(`SELECT * from game WHERE dateGame > '${dateGame}'`)
-    return results
-  } catch (errors) {
-    console.log(errors)
-  }
-}
-export async function listGameModel(idGame) {
-  try {
-    const [results, fields] = await connection.query(`SELECT * FROM game WHERE idGame = ${idGame}`)
-    console.log(results)
-    return results
-  } catch (errors) {
-    console.log(errors)
-  }
-}
 export async function insertTeamModel(teamName, teamTag) {
 
   const findTeam = await searchTeamByNameModel(teamName)
@@ -172,14 +155,6 @@ export async function searchPlayerByNameModel(idPlayer) {
 export async function searchPlayerByTeamModel(idTeam) {
   try {
     const [results, fields] = await connection.query(`SELECT * FROM player B, team A WHERE A.idTeam = '${idTeam}' and B.idTeam = A.idTeam;`)
-    return results
-  } catch (errors) {
-    console.log(errors)
-  }
-}
-export async function listGamesInTeamModel(idTeam) {
-  try {
-    const [results, fields] = await connection.query(`SELECT * FROM game WHERE teamHome = '${idTeam}' OR teamAway = '${idTeam}'`)
     return results
   } catch (errors) {
     console.log(errors)
