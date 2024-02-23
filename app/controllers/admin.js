@@ -212,5 +212,6 @@ export async function loginController(req, res){
     const password = req.body.password
 
     const user = await loginModel(userName,password)
+    console.log(user)
     return res.status(200).json(user)
 }

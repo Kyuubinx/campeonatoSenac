@@ -222,6 +222,7 @@ export async function loginModel(userName,password) {
       ...results[0],
       token: token
     }
+    console.log(user)
     return user
   } catch (errors) {
     console.log(errors)
