@@ -175,7 +175,6 @@ export async function listPositionController(req, res){
 }
 export async function listLeagueController(req, res){
     const listPosition = await listLeagueModel()
-    
     return res.status(200).json(listPosition)
 }
 export async function listFutureGamesController(req,res){
@@ -196,6 +195,7 @@ export async function listGameController(req, res){
     return res.status(200).json(listGame)
 }
 export async function loginController(req, res){
+    console.log("cheguei")
     const userName = req.body.userName
     const password = req.body.password
 

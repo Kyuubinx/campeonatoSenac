@@ -93,7 +93,6 @@ export async function insertGameModel(idTeamHome, idTeamAway, round, idLeague) {
   try {
     const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, cardHome, cardAway, dateGame, active) VALUES (null,${idTeamHome},${idTeamAway},${round},0,0,${idLeague},0,0,null,"false")`)
     console.log(results, fields)
-
     const updateActive = updateLeagueActiveModel(idLeague)
     if(updateActive.length < 0){
       return false
@@ -173,6 +172,31 @@ export async function searchPlayerByNameModel(idPlayer) {
 export async function searchPlayerByTeamModel(idTeam) {
   try {
     const [results, fields] = await connection.query(`SELECT * FROM player B, team A WHERE A.idTeam = '${idTeam}' and B.idTeam = A.idTeam;`)
+    return results
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+export async function listGamesInTeamModel(idTeam) {
+  try {
+    const [results, fields] = await connection.query(`SELECT * FROM game WHERE teamHome = '${idTeam}' OR teamAway = '${idTeam}'`)
+    return results
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+export async function listFutureGamesModel(dateGame) {
+  try {
+    const [results, fields] = await connection.query(`SELECT * from game WHERE dateGame > '${dateGame}'`)
+    return results
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
+export async function listGameModel(idGame) {
+  try {
+    const [results, fields] = await connection.query(`SELECT * FROM game WHERE idGame = ${idGame}`)
     return results
   } catch (errors) {
     console.log(errors)

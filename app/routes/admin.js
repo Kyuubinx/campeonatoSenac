@@ -6,9 +6,9 @@ export const adminRouter = Router()
 
 adminRouter.get("/teams", teamsController)
 
-adminRouter.post("/insertGame", tokenValidator, insertGameController)
-adminRouter.post("/insertTeam", tokenValidator, insertTeamController)
-adminRouter.post("/insertPlayer", tokenValidator, insertPlayerController)
+adminRouter.post("/insertGame", tokenValidator ,insertGameController)
+adminRouter.post("/insertTeam", tokenValidator ,insertTeamController)
+adminRouter.post("/insertPlayer", tokenValidator ,insertPlayerController)
 adminRouter.post("/login", loginController)
 
 adminRouter.get("/searchTeamByName/:idTeam", searchTeamController)
@@ -30,5 +30,4 @@ adminRouter.patch("/updatePlayer",tokenValidator, updatePlayerController)
 adminRouter.patch("/updateGame",tokenValidator, updateGameController)
 adminRouter.patch("/updateCard", tokenValidator, updateCardController)
 adminRouter.patch("/updateGoals", tokenValidator, updateGoalsController)
-
 adminRouter.get("/listLeague", listLeagueController)
