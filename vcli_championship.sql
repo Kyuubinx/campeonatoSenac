@@ -130,19 +130,20 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`idPlayer`, `playerName`, `idTeam`, `age`, `idPosition`, `status`) VALUES
-(1, 'sla', 7, 24, 1, 'holder'),
+(1, 'Messi', 8, 24, 1, 'holder'),
 (2, 'Iago', 8, 18, 2, 'holder'),
-(3, 'Lucas', 7, 18, 3, 'holder'),
+(3, 'Lucas', 8, 18, 3, 'holder'),
 (4, 'Vitor', 8, 17, 4, 'holder'),
 (6, 'Gustavo', 7, 31, 1, 'holder'),
 (7, 'João', 9, 21, 2, 'holder'),
 (8, 'Diego', 10, 21, 2, 'holder'),
-(9, 'Ago', 14, 21, 2, 'holder'),
-(10, 'teste', 7, 19, 3, 'holder'),
-(11, 't', 7, 18, 1, 'holder'),
-(14, 'Iago3', 7, 19, 1, 'holder'),
-(15, 'teste', 15, 20, 4, 'reserve');
-
+(9, 'Nairo', 8, 21, 2, 'holder'),
+(10, 'Regis', 7, 19, 3, 'holder'),
+(11, 'Tomas', 7, 18, 1, 'holder'),
+(14, 'Ronaldo', 7, 19, 1, 'holder'),
+(15, 'Casemiro', 8, 20, 4, 'reserve'),
+(16, 'Ricardo', 8, 20, 4, 'reserve'),
+(17, 'Rodrifo', 8, 20, 3, 'reserve');
 -- --------------------------------------------------------
 
 --
