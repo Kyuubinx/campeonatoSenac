@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Fev-2024 às 23:04
--- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.2.0
+-- Tempo de geração: 24-Fev-2024 às 01:37
+-- Versão do servidor: 10.4.24-MariaDB
+-- versão do PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `vcli_championship2`
+-- Banco de dados: `vcli_championship`
 --
 
 -- --------------------------------------------------------
@@ -38,18 +38,7 @@ CREATE TABLE `game` (
   `cardHome` int(2) NOT NULL DEFAULT 0,
   `cardAway` char(2) NOT NULL DEFAULT '0',
   `active` enum('true','false') NOT NULL DEFAULT 'false'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Extraindo dados da tabela `game`
---
-
-INSERT INTO `game` (`idGame`, `idTeamHome`, `idTeamAway`, `round`, `goalHome`, `goalAway`, `idLeague`, `cardHome`, `cardAway`, `active`) VALUES
-(5, 7, 8, 0, 5, 4, 1, 4, '5', 'false'),
-(6, 13, 12, 0, 5, 5, 1, 4, '4', 'true'),
-(730, 16, 17, 0, 0, 0, 1, 0, '0', 'true'),
-(732, 17, 8, 0, 0, 0, 1, 0, '0', 'false'),
-(733, 14, 8, 0, 0, 0, 1, 0, '0', 'false');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Acionadores `game`
@@ -101,7 +90,7 @@ CREATE TABLE `league` (
   `nameLeague` varchar(80) NOT NULL,
   `gender` enum('M','F') NOT NULL,
   `active` enum('true','false','','') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `league`
@@ -123,7 +112,7 @@ CREATE TABLE `player` (
   `age` int(11) NOT NULL,
   `idPosition` int(11) NOT NULL,
   `status` enum('holder','reserve') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `player`
@@ -144,6 +133,7 @@ INSERT INTO `player` (`idPlayer`, `playerName`, `idTeam`, `age`, `idPosition`, `
 (15, 'Casemiro', 8, 20, 4, 'reserve'),
 (16, 'Ricardo', 8, 20, 4, 'reserve'),
 (17, 'Rodrifo', 8, 20, 3, 'reserve');
+
 -- --------------------------------------------------------
 
 --
@@ -153,7 +143,7 @@ INSERT INTO `player` (`idPlayer`, `playerName`, `idTeam`, `age`, `idPosition`, `
 CREATE TABLE `position` (
   `idPosition` int(11) NOT NULL,
   `description` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `position`
@@ -175,22 +165,30 @@ INSERT INTO `position` (`idPosition`, `description`) VALUES
 CREATE TABLE `ranking` (
   `idRanking` int(11) NOT NULL,
   `idTeam` int(11) NOT NULL,
-  `points` int(11) NOT NULL,
-  `victory` int(11) NOT NULL,
-  `draw` int(11) NOT NULL,
-  `loss` int(11) NOT NULL,
-  `goalsPro` int(11) NOT NULL,
-  `goalsTaken` int(11) NOT NULL,
-  `goalSum` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `points` int(11) NOT NULL DEFAULT 0,
+  `victory` int(11) NOT NULL DEFAULT 0,
+  `draw` int(11) NOT NULL DEFAULT 0,
+  `loss` int(11) NOT NULL DEFAULT 0,
+  `goalsPro` int(11) NOT NULL DEFAULT 0,
+  `goalsTaken` int(11) NOT NULL DEFAULT 0,
+  `goalSum` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `ranking`
 --
 
 INSERT INTO `ranking` (`idRanking`, `idTeam`, `points`, `victory`, `draw`, `loss`, `goalsPro`, `goalsTaken`, `goalSum`) VALUES
-(1, 7, 3, 2, 1, 1, 2, 1, 1),
-(2, 8, 5, 1, 2, 1, 2, 1, 1);
+(1, 9, 0, 0, 0, 0, 0, 0, 0),
+(2, 16, 0, 0, 0, 0, 0, 0, 0),
+(3, 15, 0, 0, 0, 0, 0, 0, 0),
+(4, 7, 0, 0, 0, 0, 0, 0, 0),
+(5, 8, 0, 0, 0, 0, 0, 0, 0),
+(6, 8, 0, 0, 0, 0, 0, 0, 0),
+(7, 13, 0, 0, 0, 0, 0, 0, 0),
+(8, 14, 0, 0, 0, 0, 0, 0, 0),
+(9, 17, 0, 0, 0, 0, 0, 0, 0),
+(10, 10, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -204,23 +202,23 @@ CREATE TABLE `team` (
   `teamTag` char(3) NOT NULL,
   `idLeague` int(11) NOT NULL DEFAULT 1,
   `gender` enum('M','F') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `team`
 --
 
 INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idLeague`, `gender`) VALUES
-(7, 'Internacional', 'INT', 1, 'M'),
-(8, 'Gremio', 'GRE', 1, 'M'),
-(9, 'Real Madrid', 'RMC', 1, 'M'),
-(10, 'Barcelona', 'BAR', 1, 'M'),
-(12, 'Figueirense', 'FIG', 1, 'M'),
-(13, 'Flamengo', 'FLA', 1, 'M'),
-(14, 'Caxias', 'CAX', 1, 'M'),
-(15, 'Madureira', 'MAD', 1, 'M'),
-(16, 'Palmeiras', 'PAL', 1, 'M'),
-(17, 'Bragantino', 'BRA', 1, 'M');
+(1, 'Internacional', 'INT', 1, 'M'),
+(2, 'Gremio', 'GRE', 1, 'M'),
+(3, 'Real Madrid', 'RMC', 1, 'M'),
+(4, 'Barcelona', 'BAR', 1, 'M'),
+(5, 'Figueirense', 'FIG', 1, 'M'),
+(6, 'Flamengo', 'FLA', 1, 'M'),
+(7, 'Caxias', 'CAX', 1, 'M'),
+(8, 'Madureira', 'MAD', 1, 'M'),
+(9, 'Palmeiras', 'PAL', 1, 'M'),
+(10, 'Bragantino', 'BRA', 1, 'M');
 
 --
 -- Acionadores `team`
@@ -244,7 +242,7 @@ CREATE TABLE `user` (
   `cpf` int(11) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `idType` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `user`
@@ -263,7 +261,7 @@ INSERT INTO `user` (`idUser`, `userName`, `email`, `password`, `cpf`, `phone`, `
 CREATE TABLE `usertype` (
   `id` int(11) NOT NULL,
   `description` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usertype`
@@ -271,7 +269,7 @@ CREATE TABLE `usertype` (
 
 INSERT INTO `usertype` (`id`, `description`) VALUES
 (1, 'admin'),
-(3, 'user');
+(2, 'user');
 
 --
 -- Índices para tabelas despejadas
@@ -341,7 +339,7 @@ ALTER TABLE `usertype`
 -- AUTO_INCREMENT de tabela `game`
 --
 ALTER TABLE `game`
-  MODIFY `idGame` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=734;
+  MODIFY `idGame` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `league`
@@ -365,7 +363,7 @@ ALTER TABLE `position`
 -- AUTO_INCREMENT de tabela `ranking`
 --
 ALTER TABLE `ranking`
-  MODIFY `idRanking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idRanking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `team`
