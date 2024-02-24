@@ -9,10 +9,12 @@ adminRouter.post("/insertGame", insertGameController)
 adminRouter.post("/insertTeam", insertTeamController)
 adminRouter.post("/insertPlayer", insertPlayerController)
 adminRouter.post("/login", loginController)
+
 adminRouter.get("/searchTeamByName/:idTeam", searchTeamController)
 adminRouter.get("/searchPlayerById/:idPlayer", searchPlayerController)
 adminRouter.get("/searchPlayerByTeam/:idTeam", searchPlayerTeamController)
 adminRouter.get("/listPlayersInTeam/:idTeam", listPlayersTeamController)
+
 adminRouter.get("/listPosition", listPositionController)
 adminRouter.get("/listGame/:idGame", listGameController)
 adminRouter.get("/listGames/:round", listGamesController)

@@ -5,7 +5,6 @@ const app = app_server()
 await connection.connect()
 app.listen(3000, function(){
     console.log('is on hand')
-   
 });
 
 

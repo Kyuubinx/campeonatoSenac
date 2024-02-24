@@ -66,8 +66,7 @@ export async function insertTeamModel(teamName, teamTag) {
 export async function insertGameModel(idTeamHome, idTeamAway, round, idLeague) {
  
   try {
-    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, cardHome, cardAway, dateGame, active) VALUES (null,${idTeamHome},${idTeamAway},${round},0,0,${idLeague},0,0,null,"false")`)
-    console.log(results, fields)
+    const [results, fields] = await connection.query(`INSERT INTO game(idGame, idTeamHome, idTeamAway, round, goalHome, goalAway, idLeague, cardHome, cardAway, active) VALUES (null,${idTeamHome},${idTeamAway},${round},0,0,${idLeague},0,0,"false")`)
     const updateActive = updateLeagueActiveModel(idLeague)
     if(updateActive.length < 0){
       return false
@@ -180,7 +179,6 @@ export async function loginModel(userName,password) {
       ...results[0],
       token: token
     }
-    console.log(user)
     return user
   } catch (errors) {
     console.log(errors)

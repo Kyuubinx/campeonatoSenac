@@ -40,7 +40,7 @@ export async function insertGameController(req, res){
 export async function searchTeamController(req, res){
 
     const idTeam = req.params.idTeam
-    console.log(req.params.idTeam)
+
     const searchTeam = await searchTeamByIdModel(idTeam)
 
     if(!searchTeam){
@@ -147,7 +147,7 @@ export async function listGamesController(req, res){
     const round = req.params.round
 
     const listGames = await listGamesModel(round)
-
+    
     if(!listGames){
         let erro = "Erro ao pesquisar jogos do time"
         return res.status(400).json(erro)
@@ -175,12 +175,11 @@ export async function listGameController(req, res){
     return res.status(200).json(listGame)
 }
 export async function loginController(req, res){
-    console.log("cheguei")
     const userName = req.body.userName
     const password = req.body.password
 
     const user = await loginModel(userName,password)
-    console.log(user)
+
     return res.status(200).json(user)
 }
 export async function rankingController(req, res){

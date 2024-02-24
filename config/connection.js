@@ -4,7 +4,7 @@ export const connection =
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'vcli_championship'
+        database: 'vcli_championship2'
     })
 
   
