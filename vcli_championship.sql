@@ -119,20 +119,20 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`idPlayer`, `playerName`, `idTeam`, `age`, `idPosition`, `status`) VALUES
-(1, 'Messi', 8, 24, 1, 'holder'),
-(2, 'Iago', 8, 18, 2, 'holder'),
-(3, 'Lucas', 8, 18, 3, 'holder'),
-(4, 'Vitor', 8, 17, 4, 'holder'),
+(1, 'Messi', 2, 24, 1, 'holder'),
+(2, 'Iago', 2, 18, 2, 'holder'),
+(3, 'Lucas', 2, 18, 3, 'holder'),
+(4, 'Vitor', 2, 17, 4, 'holder'),
 (6, 'Gustavo', 7, 31, 1, 'holder'),
 (7, 'João', 9, 21, 2, 'holder'),
 (8, 'Diego', 10, 21, 2, 'holder'),
-(9, 'Nairo', 8, 21, 2, 'holder'),
+(9, 'Nairo', 2, 21, 2, 'holder'),
 (10, 'Regis', 7, 19, 3, 'holder'),
 (11, 'Tomas', 7, 18, 1, 'holder'),
 (14, 'Ronaldo', 7, 19, 1, 'holder'),
-(15, 'Casemiro', 8, 20, 4, 'reserve'),
-(16, 'Ricardo', 8, 20, 4, 'reserve'),
-(17, 'Rodrifo', 8, 20, 3, 'reserve');
+(15, 'Casemiro', 2, 20, 4, 'reserve'),
+(16, 'Ricardo', 2, 20, 4, 'reserve'),
+(17, 'Rodrifo', 2, 20, 3, 'reserve');
 
 -- --------------------------------------------------------
 
@@ -179,15 +179,15 @@ CREATE TABLE `ranking` (
 --
 
 INSERT INTO `ranking` (`idRanking`, `idTeam`, `points`, `victory`, `draw`, `loss`, `goalsPro`, `goalsTaken`, `goalSum`) VALUES
-(1, 9, 0, 0, 0, 0, 0, 0, 0),
-(2, 16, 0, 0, 0, 0, 0, 0, 0),
-(3, 15, 0, 0, 0, 0, 0, 0, 0),
-(4, 7, 0, 0, 0, 0, 0, 0, 0),
-(5, 8, 0, 0, 0, 0, 0, 0, 0),
-(6, 8, 0, 0, 0, 0, 0, 0, 0),
-(7, 13, 0, 0, 0, 0, 0, 0, 0),
-(8, 14, 0, 0, 0, 0, 0, 0, 0),
-(9, 17, 0, 0, 0, 0, 0, 0, 0),
+(1, 1, 0, 0, 0, 0, 0, 0, 0),
+(2, 2, 0, 0, 0, 0, 0, 0, 0),
+(3, 3, 0, 0, 0, 0, 0, 0, 0),
+(4, 4, 0, 0, 0, 0, 0, 0, 0),
+(5, 5, 0, 0, 0, 0, 0, 0, 0),
+(6, 6, 0, 0, 0, 0, 0, 0, 0),
+(7, 7, 0, 0, 0, 0, 0, 0, 0),
+(8, 8, 0, 0, 0, 0, 0, 0, 0),
+(9, 9, 0, 0, 0, 0, 0, 0, 0),
 (10, 10, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
