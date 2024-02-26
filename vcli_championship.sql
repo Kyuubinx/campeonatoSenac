@@ -44,7 +44,7 @@ CREATE TABLE `game` (
 -- Acionadores `game`
 --
 DELIMITER $$
-CREATE TRIGGER `trg_points_champion` AFTER INSERT ON `game` FOR EACH ROW BEGIN
+CREATE TRIGGER `trg_points_champion` AFTER UPDATE ON `game` FOR EACH ROW BEGIN
     IF EXISTS (SELECT * FROM game WHERE active = 'true' AND idGame = NEW.idGame) THEN
         IF NEW.goalHome > NEW.goalAway THEN
             UPDATE ranking
@@ -217,8 +217,7 @@ INSERT INTO `team` (`idTeam`, `teamName`, `teamTag`, `idLeague`, `gender`) VALUE
 (6, 'Flamengo', 'FLA', 1, 'M'),
 (7, 'Caxias', 'CAX', 1, 'M'),
 (8, 'Madureira', 'MAD', 1, 'M'),
-(9, 'Palmeiras', 'PAL', 1, 'M'),
-(10, 'Bragantino', 'BRA', 1, 'M');
+(9, 'Palmeiras', 'PAL', 1, 'M');
 
 --
 -- Acionadores `team`
